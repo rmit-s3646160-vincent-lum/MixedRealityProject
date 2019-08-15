@@ -1,0 +1,363 @@
+fileFormatVersion: 2
+guid: 77c0e6c681e783a4b8a8fc55cd78afff
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BentSign
+    100002: Cable
+    100004: Cable2
+    100006: Cable3
+    100008: Cable4
+    100010: Cables
+    100012: ClockHand2
+    100014: ClockHand3
+    100016: ClockHands
+    100018: Gear
+    100020: Hand
+    100022: lamp
+    100024: lamp1
+    100026: Lamps
+    100028: pCube1
+    100030: pCube18
+    100032: pCube19
+    100034: pCube22
+    100036: pCube22 1
+    100038: pCylinder22
+    100040: pCylinder22 1
+    100042: pCylinder23
+    100044: pCylinder23 1
+    100046: pCylinder34
+    100048: pCylinder34 1
+    100050: pCylinder34 2
+    100052: pCylinder35
+    100054: pCylinder35 1
+    100056: pCylinder35 2
+    100058: pCylinder36
+    100060: pCylinder36 1
+    100062: pCylinder36 2
+    100064: pCylinder43
+    100066: pCylinder43 1
+    100068: Pipe
+    100070: //RootNode
+    100072: Platform
+    100074: pSphere4
+    100076: pSphere4 1
+    100078: pSphere4 2
+    100080: pSphere5
+    100082: pSphere5 1
+    100084: pSphere5 2
+    100086: pSphere6
+    100088: pSphere6 1
+    100090: pSphere6 2
+    100092: RailwaySign
+    100094: Rocks
+    100096: sign
+    100098: sign1
+    100100: sign2
+    100102: Signs
+    100104: StopSign2
+    100106: StopSign3
+    100108: StopSigns
+    100110: streetlight
+    100112: streetlight3
+    100114: streetlight5
+    100116: StreetLights
+    100118: trafficLight1
+    100120: trafficLight2
+    100122: trafficLight3
+    100124: TrafficLights
+    400000: BentSign
+    400002: Cable
+    400004: Cable2
+    400006: Cable3
+    400008: Cable4
+    400010: Cables
+    400012: ClockHand2
+    400014: ClockHand3
+    400016: ClockHands
+    400018: Gear
+    400020: Hand
+    400022: lamp
+    400024: lamp1
+    400026: Lamps
+    400028: pCube1
+    400030: pCube18
+    400032: pCube19
+    400034: pCube22
+    400036: pCube22 1
+    400038: pCylinder22
+    400040: pCylinder22 1
+    400042: pCylinder23
+    400044: pCylinder23 1
+    400046: pCylinder34
+    400048: pCylinder34 1
+    400050: pCylinder34 2
+    400052: pCylinder35
+    400054: pCylinder35 1
+    400056: pCylinder35 2
+    400058: pCylinder36
+    400060: pCylinder36 1
+    400062: pCylinder36 2
+    400064: pCylinder43
+    400066: pCylinder43 1
+    400068: Pipe
+    400070: Platform
+    400072: //RootNode
+    400074: pSphere4
+    400076: pSphere4 1
+    400078: pSphere4 2
+    400080: pSphere5
+    400082: pSphere5 1
+    400084: pSphere5 2
+    400086: pSphere6
+    400088: pSphere6 1
+    400090: pSphere6 2
+    400092: RailwaySign
+    400094: Rocks
+    400096: sign
+    400098: sign1
+    400100: sign2
+    400102: Signs
+    400104: StopSign2
+    400106: StopSign3
+    400108: StopSigns
+    400110: streetlight
+    400112: streetlight3
+    400114: streetlight5
+    400116: StreetLights
+    400118: trafficLight1
+    400120: trafficLight2
+    400122: trafficLight3
+    400124: TrafficLights
+    2100000: lambert1
+    2300000: BentSign
+    2300002: Cable
+    2300004: Cable2
+    2300006: Cable3
+    2300008: Cable4
+    2300010: ClockHand2
+    2300012: ClockHand3
+    2300014: Gear
+    2300016: Hand
+    2300018: pCube1
+    2300020: pCube18
+    2300022: pCube19
+    2300024: pCube22
+    2300026: pCube22 1
+    2300028: pCylinder22
+    2300030: pCylinder22 1
+    2300032: pCylinder23
+    2300034: pCylinder23 1
+    2300036: pCylinder34
+    2300038: pCylinder34 1
+    2300040: pCylinder34 2
+    2300042: pCylinder35
+    2300044: pCylinder35 1
+    2300046: pCylinder35 2
+    2300048: pCylinder36
+    2300050: pCylinder36 1
+    2300052: pCylinder36 2
+    2300054: pCylinder43
+    2300056: pCylinder43 1
+    2300058: Pipe
+    2300060: Platform
+    2300062: pSphere4
+    2300064: pSphere4 1
+    2300066: pSphere4 2
+    2300068: pSphere5
+    2300070: pSphere5 1
+    2300072: pSphere5 2
+    2300074: pSphere6
+    2300076: pSphere6 1
+    2300078: pSphere6 2
+    2300080: RailwaySign
+    2300082: Rocks
+    2300084: sign
+    2300086: sign1
+    2300088: sign2
+    2300090: streetlight
+    2300092: streetlight3
+    2300094: streetlight5
+    3300000: BentSign
+    3300002: Cable
+    3300004: Cable2
+    3300006: Cable3
+    3300008: Cable4
+    3300010: ClockHand2
+    3300012: ClockHand3
+    3300014: Gear
+    3300016: Hand
+    3300018: pCube1
+    3300020: pCube18
+    3300022: pCube19
+    3300024: pCube22
+    3300026: pCube22 1
+    3300028: pCylinder22
+    3300030: pCylinder22 1
+    3300032: pCylinder23
+    3300034: pCylinder23 1
+    3300036: pCylinder34
+    3300038: pCylinder34 1
+    3300040: pCylinder34 2
+    3300042: pCylinder35
+    3300044: pCylinder35 1
+    3300046: pCylinder35 2
+    3300048: pCylinder36
+    3300050: pCylinder36 1
+    3300052: pCylinder36 2
+    3300054: pCylinder43
+    3300056: pCylinder43 1
+    3300058: Pipe
+    3300060: Platform
+    3300062: pSphere4
+    3300064: pSphere4 1
+    3300066: pSphere4 2
+    3300068: pSphere5
+    3300070: pSphere5 1
+    3300072: pSphere5 2
+    3300074: pSphere6
+    3300076: pSphere6 1
+    3300078: pSphere6 2
+    3300080: RailwaySign
+    3300082: Rocks
+    3300084: sign
+    3300086: sign1
+    3300088: sign2
+    3300090: streetlight
+    3300092: streetlight3
+    3300094: streetlight5
+    4300000: Platform
+    4300002: Gear
+    4300004: Hand
+    4300006: Pipe
+    4300008: RailwaySign
+    4300010: Rocks
+    4300012: sign
+    4300014: pCube18
+    4300016: BentSign
+    4300018: pCube19
+    4300020: sign2
+    4300022: pCube1
+    4300024: sign1
+    4300026: Cable
+    4300028: Cable2
+    4300030: Cable3
+    4300032: Cable4
+    4300034: pSphere6
+    4300036: pCylinder36
+    4300038: pSphere5
+    4300040: pSphere4
+    4300042: pCylinder34
+    4300044: pCylinder35
+    4300046: pSphere6
+    4300048: pCylinder36
+    4300050: pSphere5
+    4300052: pSphere4
+    4300054: pCylinder34
+    4300056: pCylinder35
+    4300058: pSphere6
+    4300060: pCylinder36
+    4300062: pSphere5
+    4300064: pSphere4
+    4300066: pCylinder34
+    4300068: pCylinder35
+    4300070: pCylinder22
+    4300072: pCylinder23
+    4300074: pCylinder22
+    4300076: pCylinder23
+    4300078: pCylinder43
+    4300080: pCube22
+    4300082: pCylinder43
+    4300084: pCube22
+    4300086: streetlight5
+    4300088: streetlight3
+    4300090: streetlight
+    4300092: ClockHand2
+    4300094: ClockHand3
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 15
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
