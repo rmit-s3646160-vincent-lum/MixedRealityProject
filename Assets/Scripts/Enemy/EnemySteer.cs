@@ -22,102 +22,130 @@ public class EnemySteer : MonoBehaviour
 
 	}
 
-	public Vector2 GetFlockForce(EnemyFlock flock)
+	public Vector3 GetFlockForce(List<Transform> flockList)
 	{
-		Vector2 force = new Vector2();
-		force += Follow(flock);
-		force += Seperate(flock);
-		force += KeepDistanceFromCharacter(flock);
-		force += Align(flock);
-		force += GiveWay(flock);
+
+		Vector3 force = Vector3.zero;
+		if (flockList.Count == 0)
+		{
+			force += new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized * 1;
+		}
+		else
+		{
+			force += Seperate(flockList);
+			force += Align(flockList);
+			force += Cohesion(flockList);
+		}
+		force += Bound(flockList);
 		return force;
 	}
 
-	private Vector2 Follow(EnemyFlock flock)
+	private Vector3 Seperate(List<Transform> flockList)
 	{
-		Vector2 force = flock.GetCharacterTrans().position - transform.position;
-		if (force.magnitude > FOLLOW_DISTANCE)
+		Vector3 force = Vector3.zero;
+		foreach (Transform trans in flockList)
 		{
-			return force.normalized * FOLLOW_FORCE_SCALE;
-		}
-		return Vector2.zero;
-	}
-
-	private Vector2 Seperate(EnemyFlock flock)
-	{
-		Vector2 force = Vector2.zero;
-		foreach (EnemyManager survivor in flock.GetEnemys())
-		{
-			Vector2 difference = transform.position - survivor.transform.position;
-			if (difference.magnitude < SEPERATE_DISTANCE)
+			Vector3 difference = transform.position - trans.position;
+			if (difference.magnitude <= SEPERATE_DISTANCE)
 			{
-				force += difference;
+				force += difference.normalized / difference.magnitude;
 			}
 		}
 		return force.normalized * SEPERATE_FORCE_SCALE;
 	}
 
-	private Vector2 KeepDistanceFromCharacter(EnemyFlock flock)
+	private Vector3 Align(List<Transform> flockList)
 	{
-		Vector2 force = Vector2.zero;
-		Vector2 difference = transform.position - flock.GetCharacterTrans().position;
-		if (difference.magnitude <= KEEP_DISTANCE)
+		Vector3 force = Vector3.zero;
+		foreach (Transform trans in flockList)
 		{
-			force = difference;
-		}
-		return force.normalized * SEPERATE_FORCE_SCALE;
-	}
-
-	private Vector2 Align(EnemyFlock flock)
-	{
-		if (flock.GetCharacterRigidbody2D().velocity == Vector2.zero)
-		{
-			return Vector2.zero;
-		}
-		Vector2 force = Vector2.zero;
-		foreach (EnemyManager survivor in flock.GetEnemys())
-		{
-			force += survivor.GetComponent<Rigidbody2D>().velocity;
+			force += trans.GetComponent<Rigidbody>().velocity;
 		}
 		return force.normalized * ALIGN_FORCE_SCALE;
 	}
 
-	private Vector2 GiveWay(EnemyFlock flock)
+	private Vector3 Cohesion(List<Transform> flockList)
 	{
-		Vector2 force = Vector2.zero;
-		Vector2 playerForward = flock.GetCharacterRigidbody2D().velocity;
-		if (playerForward == Vector2.zero)
+		Vector3 force = Vector3.zero;
+		if (flockList.Count == 0)
 		{
 			return force;
 		}
-		playerForward.Normalize();
-		Vector2 playetToThis = transform.position - flock.GetCharacterTrans().position;
-		playetToThis.Normalize();
-		float angle = Vector2.Angle(playerForward, playetToThis);
-		if (angle <= AVOID_ANGLE)
+		int count = 0;
+		foreach (Transform trans in flockList)
 		{
-			force = playetToThis - playerForward;
+			count++;
+			force += trans.position;
 		}
-		return force.normalized * GIVE_WAY_FORCE_SCALE;
+		force /= count;
+		force -= transform.position;
+		return force.normalized * COHESION_FORCE_SCALE;
 	}
 
-	public Vector2 GetFleeingForce(List<Transform> enemyTransforms)
+	private Vector3 Bound(List<Transform> flockList)
 	{
-		Vector2 force = Vector2.zero;
-		force += Flee(enemyTransforms);
-		return force;
-	}
-
-
-	private Vector2 Flee(List<Transform> enemyTransforms)
-	{
-		Vector2 force = Vector2.zero;
-		foreach (Transform enemyTrans in enemyTransforms)
+		Vector3 force = Vector3.zero;
+		if (Mathf.Abs(transform.position.x) > MAP_WIDTH_BOUND)
 		{
-			Vector2 difference = transform.position - enemyTrans.position;
-			force += difference.normalized / difference.magnitude;
+			force += new Vector3(-transform.position.x, 0, 0);
 		}
-		return force.normalized * FLEE_FORCE_SCALE;
+		if (Mathf.Abs(transform.position.z) > MAP_HEIGHT_BOUND)
+		{
+			force += new Vector3(0, 0, -transform.position.z);
+		}
+		return force.normalized * BOUND_FORCE_SCALE;
 	}
+
+	//private Vector2 Align(EnemyFlock flock)
+	//{
+	//	if (flock.GetCharacterRigidbody2D().velocity == Vector2.zero)
+	//	{
+	//		return Vector2.zero;
+	//	}
+	//	Vector2 force = Vector2.zero;
+	//	foreach (EnemyManager survivor in flock.GetEnemys())
+	//	{
+	//		force += survivor.GetComponent<Rigidbody2D>().velocity;
+	//	}
+	//	return force.normalized * ALIGN_FORCE_SCALE;
+	//}
+
+	//private Vector2 GiveWay(EnemyFlock flock)
+	//{
+	//	Vector2 force = Vector2.zero;
+	//	Vector2 playerForward = flock.GetCharacterRigidbody2D().velocity;
+	//	if (playerForward == Vector2.zero)
+	//	{
+	//		return force;
+	//	}
+	//	playerForward.Normalize();
+	//	Vector2 playetToThis = transform.position - flock.GetCharacterTrans().position;
+	//	playetToThis.Normalize();
+	//	float angle = Vector2.Angle(playerForward, playetToThis);
+	//	if (angle <= AVOID_ANGLE)
+	//	{
+	//		force = playetToThis - playerForward;
+	//	}
+	//	return force.normalized * GIVE_WAY_FORCE_SCALE;
+	//}
+
+	//public Vector2 GetFleeingForce(List<Transform> enemyTransforms)
+	//{
+	//	Vector2 force = Vector2.zero;
+	//	force += Flee(enemyTransforms);
+	//	return force;
+	//}
+
+
+	//private Vector2 Flee(List<Transform> enemyTransforms)
+	//{
+	//	Vector2 force = Vector2.zero;
+	//	foreach (Transform enemyTrans in enemyTransforms)
+	//	{
+	//		Vector2 difference = transform.position - enemyTrans.position;
+	//		force += difference.normalized / difference.magnitude;
+	//	}
+	//	return force.normalized * FLEE_FORCE_SCALE;
+	//}
 
 }

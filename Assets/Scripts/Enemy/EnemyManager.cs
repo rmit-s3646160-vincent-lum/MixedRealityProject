@@ -8,16 +8,18 @@ public class EnemyManager : MonoBehaviour
 {
 	private EnemyMovement movement;
 	private EnemySteer steer;
+	private EnemyFlockDetection enemyFlockDetection;
 
 
 	private void Awake()
 	{
 		movement = GetComponent<EnemyMovement>();
 		steer = GetComponent<EnemySteer>();
+		enemyFlockDetection = GetComponentInChildren<EnemyFlockDetection>();
 	}
 
 	private void FixedUpdate()
 	{
-        movement.ApplyForce(new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized);
+		movement.ApplyForce(steer.GetFlockForce(enemyFlockDetection.GetFlockList()));
 	}
 }

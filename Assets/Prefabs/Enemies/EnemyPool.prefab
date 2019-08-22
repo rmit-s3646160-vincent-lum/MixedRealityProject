@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4386610010840987828}
+  - component: {fileID: 4865322168691319938}
   m_Layer: 0
   m_Name: EnemyPool
   m_TagString: Untagged
@@ -30,3 +31,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4865322168691319938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203882210067842304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5774db2417e4df47b713c40c282daf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawningSpots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemyPrefab: {fileID: 1847037209400732369, guid: 2e382a84034ea44438e51adc2dcb2822,
+    type: 3}
