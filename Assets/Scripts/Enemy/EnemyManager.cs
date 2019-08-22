@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static EnemyConstants;
 
 public class EnemyManager : MonoBehaviour
 {

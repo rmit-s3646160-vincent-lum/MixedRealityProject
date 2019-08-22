@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5264c89a65d64e44abcb5ea80baa51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 5
 --- !u!114 &6966310727862425285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92738048557117d429871bc3aeb143c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapWidthBound: 5
+  mapHeightBound: 5
+  seperateDistance: 5
+  seperateForceScale: 3
+  alignForceScale: 1
+  cohesionForceScale: 2
+  boundForceScale: 2
 --- !u!1 &3351458074587101766
 GameObject:
   m_ObjectHideFlags: 0

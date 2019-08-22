@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EnemyConstants;
 
 public class EnemySteer : MonoBehaviour
 {
+	public float mapWidthBound = 10f;
+	public float mapHeightBound = 10f;
+
+	public float seperateDistance = 5f;
+
+	public float seperateForceScale = 3f;
+	public float alignForceScale = 1f;
+	public float cohesionForceScale = 2f;
+	public float boundForceScale = 2f;
 
 	private void Awake()
 	{
@@ -46,12 +54,12 @@ public class EnemySteer : MonoBehaviour
 		foreach (Transform trans in flockList)
 		{
 			Vector3 difference = transform.position - trans.position;
-			if (difference.magnitude <= SEPERATE_DISTANCE)
+			if (difference.magnitude <= seperateDistance)
 			{
 				force += difference.normalized / difference.magnitude;
 			}
 		}
-		return force.normalized * SEPERATE_FORCE_SCALE;
+		return force.normalized * seperateForceScale;
 	}
 
 	private Vector3 Align(List<Transform> flockList)
@@ -61,7 +69,7 @@ public class EnemySteer : MonoBehaviour
 		{
 			force += trans.GetComponent<Rigidbody>().velocity;
 		}
-		return force.normalized * ALIGN_FORCE_SCALE;
+		return force.normalized * alignForceScale;
 	}
 
 	private Vector3 Cohesion(List<Transform> flockList)
@@ -79,21 +87,21 @@ public class EnemySteer : MonoBehaviour
 		}
 		force /= count;
 		force -= transform.position;
-		return force.normalized * COHESION_FORCE_SCALE;
+		return force.normalized * cohesionForceScale;
 	}
 
 	private Vector3 Bound(List<Transform> flockList)
 	{
 		Vector3 force = Vector3.zero;
-		if (Mathf.Abs(transform.position.x) > MAP_WIDTH_BOUND)
+		if (Mathf.Abs(transform.position.x) > mapWidthBound)
 		{
 			force += new Vector3(-transform.position.x, 0, 0);
 		}
-		if (Mathf.Abs(transform.position.z) > MAP_HEIGHT_BOUND)
+		if (Mathf.Abs(transform.position.z) > mapHeightBound)
 		{
 			force += new Vector3(0, 0, -transform.position.z);
 		}
-		return force.normalized * BOUND_FORCE_SCALE;
+		return force.normalized * boundForceScale;
 	}
 
 	//private Vector2 Align(EnemyFlock flock)

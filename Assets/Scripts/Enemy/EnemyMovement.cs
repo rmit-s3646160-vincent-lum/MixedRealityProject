@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EnemyConstants;
 
 public class EnemyMovement : MonoBehaviour
 {
 	private Rigidbody rigidbody;
+
+	public float maxSpeed = 5f;
 
 	private void Awake()
 	{
@@ -25,9 +26,9 @@ public class EnemyMovement : MonoBehaviour
 	private void FixedUpdate()
 	{
 		FaceForward();
-		if (rigidbody.velocity.magnitude > MAX_SPEED)
+		if (rigidbody.velocity.magnitude > maxSpeed)
 		{
-			rigidbody.velocity = rigidbody.velocity.normalized * MAX_SPEED;
+			rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
 		}
 	}
 
