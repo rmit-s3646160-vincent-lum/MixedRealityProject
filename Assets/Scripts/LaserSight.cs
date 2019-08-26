@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class LaserSight : MonoBehaviour
 {
-    private LineRenderer lr;
-    private RaycastHit hit;
-    private float maxLen = 1000;
+    public enum TargetMode { Highlighting, Targeting, NoTarget};
+
+    public TargetMode mode = TargetMode.NoTarget;
     public LayerMask layermask;
+    private float maxLen = 1000;
 
     private GameObject highlighted;
+    private LineRenderer lr;
+    private RaycastHit hit;
 
     void Start()
     {
@@ -77,6 +80,26 @@ public class LaserSight : MonoBehaviour
                 highlighted.GetComponent<Outline>().enabled = false;
                 highlighted = null;
             }
+        }
+    }
+
+    public void HandleInput()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if(mode == TargetMode.Highlighting)
+            {
+                mode = TargetMode.Targeting;
+                print("pulling in object");
+            }
+
+        } else if (Input.GetMouseButtonUp(0)) {
+            if(mode == TargetMode.Targeting)
+            {
+                mode = TargetMode.NoTarget;
+                print("stopped pulling");
+            }
+
         }
     }
 }
