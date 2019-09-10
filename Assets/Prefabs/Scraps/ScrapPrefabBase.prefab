@@ -16,8 +16,9 @@ GameObject:
   - component: {fileID: 622819719685744944}
   - component: {fileID: 733766180430348464}
   - component: {fileID: 6966310727862425285}
+  - component: {fileID: 5839158276350857959}
   m_Layer: 0
-  m_Name: EnemyPrefabBase
+  m_Name: ScrapPrefabBase
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,6 +157,18 @@ MonoBehaviour:
   alignForceScale: 1
   cohesionForceScale: 2
   boundForceScale: 2
+--- !u!114 &5839158276350857959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847037209400732369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b5606f58f7c4180b9548d272605697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3351458074587101766
 GameObject:
   m_ObjectHideFlags: 0

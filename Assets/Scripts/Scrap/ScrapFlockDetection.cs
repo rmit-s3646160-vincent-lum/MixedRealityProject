@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EnemyConstants;
+using static ScrapConstants;
 
-public class EnemyFlockDetection : MonoBehaviour
+public class ScrapFlockDetection : MonoBehaviour
 {
 	private List<Transform> flockList = new List<Transform>();
 	// Start is called before the first frame update

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySteer : MonoBehaviour
+public class ScrapSteer : MonoBehaviour
 {
 	public float mapWidthBound = 10f;
 	public float mapHeightBound = 10f;

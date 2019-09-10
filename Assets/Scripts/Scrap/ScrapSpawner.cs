@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EnemyConstants;
+using static ScrapConstants;
 
-public class EnemySpawner : MonoBehaviour
+public class ScrapSpawner : MonoBehaviour
 {
-	public EnemyPool survivorPool;
+	public ScrapPool survivorPool;
 	private float timeElapsed;
 	// Start is called before the first frame update
 	void Start()

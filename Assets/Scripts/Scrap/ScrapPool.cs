@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPool : MonoBehaviour
+public class ScrapPool : MonoBehaviour
 {
 	public List<Transform> spawningSpots;
 	public GameObject enemyPrefab;
