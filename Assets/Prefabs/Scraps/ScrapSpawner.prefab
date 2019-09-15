@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076578513688427939}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.03, y: 0, z: -2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7143181361196576330}
@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2433927634955854270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.08, y: 0, z: 2.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7143181361196576330}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 6434539910402610051}
   - component: {fileID: 941151191652122167}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: ScrapSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8944377038357962790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.81, y: 0, z: 2.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7143181361196576330}
@@ -180,6 +180,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyPool
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865322168691319938, guid: 315beda7680973e4fb76d9e982a09125,
+        type: 3}
+      propertyPath: spawningSpots.Array.data[0]
+      value: 
+      objectReference: {fileID: 4318799474118775801}
+    - target: {fileID: 4865322168691319938, guid: 315beda7680973e4fb76d9e982a09125,
+        type: 3}
+      propertyPath: spawningSpots.Array.data[1]
+      value: 
+      objectReference: {fileID: 2345112432094234715}
+    - target: {fileID: 4865322168691319938, guid: 315beda7680973e4fb76d9e982a09125,
+        type: 3}
+      propertyPath: spawningSpots.Array.data[2]
+      value: 
+      objectReference: {fileID: 4408412621844314393}
+    - target: {fileID: 4865322168691319938, guid: 315beda7680973e4fb76d9e982a09125,
+        type: 3}
+      propertyPath: maxNum
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4386610010840987828, guid: 315beda7680973e4fb76d9e982a09125,
         type: 3}
@@ -236,21 +256,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4865322168691319938, guid: 315beda7680973e4fb76d9e982a09125,
-        type: 3}
-      propertyPath: spawningSpots.Array.data[0]
-      value: 
-      objectReference: {fileID: 4318799474118775801}
-    - target: {fileID: 4865322168691319938, guid: 315beda7680973e4fb76d9e982a09125,
-        type: 3}
-      propertyPath: spawningSpots.Array.data[1]
-      value: 
-      objectReference: {fileID: 2345112432094234715}
-    - target: {fileID: 4865322168691319938, guid: 315beda7680973e4fb76d9e982a09125,
-        type: 3}
-      propertyPath: spawningSpots.Array.data[2]
-      value: 
-      objectReference: {fileID: 4408412621844314393}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 315beda7680973e4fb76d9e982a09125, type: 3}
 --- !u!4 &8447853667673323742 stripped

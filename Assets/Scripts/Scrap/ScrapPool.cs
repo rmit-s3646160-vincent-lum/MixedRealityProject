@@ -6,6 +6,7 @@ public class ScrapPool : MonoBehaviour
 {
 	public List<Transform> spawningSpots;
 	public GameObject enemyPrefab;
+	public int maxNum;
 	private List<GameObject> enemies = new List<GameObject>();
 	// Start is called before the first frame update
 	void Start()
@@ -21,6 +22,10 @@ public class ScrapPool : MonoBehaviour
 
 	public void PullOneEnemy()
 	{
+		if (enemies.Count >= maxNum)
+		{
+			return;
+		}
 		Transform spot = spawningSpots[Random.Range(0, spawningSpots.Count)];
 		foreach (GameObject survivor in enemies)
 		{
