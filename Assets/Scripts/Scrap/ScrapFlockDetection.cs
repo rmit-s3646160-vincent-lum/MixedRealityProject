@@ -20,7 +20,7 @@ public class ScrapFlockDetection : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag(ENEMY_TAG))
+		if (other.CompareTag(SCRAP_TAG))
 		{
 			if (!flockList.Contains(other.transform))
 			{
@@ -32,7 +32,7 @@ public class ScrapFlockDetection : MonoBehaviour
 	private void OnTriggerStay(Collider other)
 	{
 
-		if (other.CompareTag(ENEMY_TAG))
+		if (other.CompareTag(SCRAP_TAG))
 		{
 			if (!flockList.Contains(other.transform))
 			{
@@ -43,7 +43,7 @@ public class ScrapFlockDetection : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.CompareTag(ENEMY_TAG))
+		if (other.CompareTag(SCRAP_TAG))
 		{
 			if (flockList.Contains(other.transform))
 			{

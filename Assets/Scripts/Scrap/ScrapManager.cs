@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class ScrapManager : MonoBehaviour
 {
+
 	private ScrapMovement movement;
 	private ScrapSteer steer;
 	private ScrapFlockDetection enemyFlockDetection;
