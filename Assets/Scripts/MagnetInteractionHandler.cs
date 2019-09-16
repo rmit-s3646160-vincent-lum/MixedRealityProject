@@ -78,7 +78,7 @@ public class MagnetInteractionHandler : MonoBehaviour, IMixedRealityPointerHandl
         {
 
             // Rotate if not first pointer
-            float rotationAmount = (rotateStartPoint - eventData.Pointer.Position).magnitude * 100;
+            float rotationAmount = (Camera.main.WorldToScreenPoint(rotateStartPoint).x - Camera.main.WorldToScreenPoint(eventData.Pointer.Position).x) * 0.25f;
             transform.Rotate(0, rotationAmount, 0);
 
             rotateStartPoint = eventData.Pointer.Position;
