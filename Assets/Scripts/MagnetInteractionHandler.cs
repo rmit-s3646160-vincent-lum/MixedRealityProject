@@ -16,7 +16,7 @@ public class MagnetInteractionHandler : MonoBehaviour, IMixedRealityPointerHandl
     [SerializeField] List<uint> pointers;
 
     Vector3 grabOffset;
-    float distance;
+    Vector3 rotateStartPoint;
 
     private TwoHandMoveLogic moveLogic;
 
@@ -51,6 +51,10 @@ public class MagnetInteractionHandler : MonoBehaviour, IMixedRealityPointerHandl
 
             moveLogic.Setup(pointerPose, eventData.Pointer.Result.Details.Point, hostPose, transform.localScale);
         }
+        else
+        {
+            rotateStartPoint = eventData.Pointer.Position;
+        }
 
         eventData.Use();
     }
@@ -69,6 +73,16 @@ public class MagnetInteractionHandler : MonoBehaviour, IMixedRealityPointerHandl
             Vector3 offset = (transform.position - eventData.Pointer.Result.Details.Point) + Vector3.Normalize(transform.position - eventData.Pointer.Position) * distanceOffset;
             smoothedPosition = Vector3.Lerp(transform.position, eventData.Pointer.Position + offset, lerpAmount);
             transform.position = smoothedPosition;
+        }
+        else
+        {
+
+            // Rotate if not first pointer
+            float rotationAmount = (rotateStartPoint - eventData.Pointer.Position).magnitude * 100;
+            transform.Rotate(0, rotationAmount, 0);
+
+            rotateStartPoint = eventData.Pointer.Position;
+
         }
     }
 
