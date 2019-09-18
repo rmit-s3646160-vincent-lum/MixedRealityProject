@@ -31,7 +31,6 @@ public class MagnetInteractionHandler : MonoBehaviour, IMixedRealityPointerHandl
         moveLogic = new TwoHandMoveLogic();
         rb = GetComponent<Rigidbody>();
         wasKinematic = rb.isKinematic;
-        Application.targetFrameRate = 100;
     }
 
     public void OnPointerDown(MixedRealityPointerEventData eventData)

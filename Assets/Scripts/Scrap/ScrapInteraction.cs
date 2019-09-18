@@ -11,7 +11,7 @@ public class ScrapInteraction : MonoBehaviour
 {
 	[SerializeField] private State state;
 
-	public float distanceOffset = 0.5f;
+	public float offsetDistance = 2f;
 	public float smoothing = 0.001f;
 	private Vector3 translation = Vector3.zero;
 
@@ -46,11 +46,9 @@ public class ScrapInteraction : MonoBehaviour
 			{
 				rb.isKinematic = true;
 			}
-			Vector3 offset = (transform.position - eventData.Pointer.Result.Details.Point) + Vector3.Normalize(transform.position - eventData.Pointer.Position) * distanceOffset;
 
 			MixedRealityPose pointerPose = new MixedRealityPose(eventData.Pointer.Position, eventData.Pointer.Rotation);
 			MixedRealityPose hostPose = new MixedRealityPose(transform.position, transform.rotation);
-			//MixedRealityPose hostPose = new MixedRealityPose(eventData.Pointer.Position + offset, transform.rotation); // Edited to bring object to the controller
 
 			moveLogic.Setup(pointerPose, eventData.Pointer.Result.Details.Point, hostPose, transform.localScale);
 		}
@@ -68,13 +66,14 @@ public class ScrapInteraction : MonoBehaviour
 		{
 			MixedRealityPose pointerPose = new MixedRealityPose(eventData.Pointer.Position, eventData.Pointer.Rotation);
 			Vector3 targetPosition = moveLogic.Update(pointerPose, transform.rotation, transform.localScale, false, true, MovementConstraintType.None) + translation;
-			float lerpAmount = 1.0f - Mathf.Pow(smoothing, Time.deltaTime);
-			Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, lerpAmount);
-			transform.position = smoothedPosition;
 
-			// Move toward controller
-			Vector3 offset = (transform.position - eventData.Pointer.Result.Details.Point) + Vector3.Normalize(transform.position - eventData.Pointer.Position) * distanceOffset;
-			smoothedPosition = Vector3.Lerp(transform.position, eventData.Pointer.Position + offset, lerpAmount);
+            Vector3 grabOffset = transform.position - eventData.Pointer.Result.Details.Point;
+            Vector3 offsetFromController = Vector3.Normalize(targetPosition - eventData.Pointer.Position) * offsetDistance;
+            Vector3 distanceVector = targetPosition - eventData.Pointer.Position;
+            targetPosition = targetPosition - distanceVector + offsetFromController + grabOffset;
+
+            float lerpAmount = 1.0f - Mathf.Pow(smoothing, Time.deltaTime);
+			Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, lerpAmount);
 			transform.position = smoothedPosition;
 		}
 		else
@@ -95,10 +94,8 @@ public class ScrapInteraction : MonoBehaviour
 
 		if (pointers.Count == 0)
 		{
-			if (rb != null)
-			{
-				rb.isKinematic = wasKinematic;
-			}
+            ReleaseScrap(eventData);
+            //ShootScrap(eventData);
 		}
 
 		eventData.Use();
@@ -107,6 +104,32 @@ public class ScrapInteraction : MonoBehaviour
 	public void OnPointerClicked(MixedRealityPointerEventData eventData)
 	{
 	}
+
+    public void ShootScrap(MixedRealityPointerEventData eventData)
+    {
+        if (rb != null)
+        {
+            rb.isKinematic = wasKinematic;
+            if (eventData.Pointer.Controller != null)
+            {
+                float speed = 20;
+                Vector3 direction = eventData.Pointer.Result.Details.Point - eventData.Pointer.Position;
+                rb.velocity = direction.normalized * speed;
+            }
+        }
+    }
+
+    public void ReleaseScrap(MixedRealityPointerEventData eventData)
+    {
+        if (rb != null)
+        {
+            rb.isKinematic = wasKinematic;
+            if (eventData.Pointer.Controller != null)
+            {
+                rb.velocity = eventData.Pointer.Controller.Velocity;
+            }
+        }
+    }
 
 	public void SetState(State state)
 	{
