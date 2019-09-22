@@ -6,6 +6,7 @@ using static ScrapConstants;
 public class ScrapMovement : MonoBehaviour
 {
 	private Rigidbody rigidbody;
+	private Collider collider;
 	private ScrapInteraction scrapInteraction;
 
 	public float maxSpeed = 5f;
@@ -15,6 +16,7 @@ public class ScrapMovement : MonoBehaviour
 	{
 		rigidbody = GetComponent<Rigidbody>();
 		scrapInteraction = GetComponent<ScrapInteraction>();
+		collider = GetComponent<Collider>();
 	}
 	// Start is called before the first frame update
 	void Start()
@@ -43,8 +45,6 @@ public class ScrapMovement : MonoBehaviour
 			case State.notPlaced:
 				break;
 			case State.beingPlaced:
-				rigidbody.isKinematic = true;
-				rigidbody.constraints = RigidbodyConstraints.FreezeAll;
 				break;
 
 		}
@@ -69,6 +69,56 @@ public class ScrapMovement : MonoBehaviour
 	public void ApplyForce(Vector3 force)
 	{
 		rigidbody.AddForce(force, ForceMode.Impulse);
+	}
+
+	public void ChangeState(State state)
+	{
+		switch (state)
+		{
+			case State.initial:
+				scrapInteraction.SetState(State.initial);
+				break;
+			case State.manipulating:
+				scrapInteraction.SetState(State.manipulating);
+				rigidbody.constraints = RigidbodyConstraints.None;
+				break;
+			case State.notPlaced:
+				scrapInteraction.SetState(State.notPlaced);
+				break;
+			case State.beingPlaced:
+				rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+				scrapInteraction.SetState(State.beingPlaced);
+				break;
+
+		}
+	}
+
+	public void StartManipulating()
+	{
+		ChangeState(State.manipulating);
+	}
+
+	public void StopManipulating()
+	{
+		ChangeState(State.notPlaced);
+	}
+
+	private void OnCollisionStay(Collision collision)
+	{
+		if (scrapInteraction.GetState() == State.notPlaced)
+		{
+			if (collision.gameObject.layer == PLATFORM_LAYER)
+			{
+				ChangeState(State.beingPlaced);
+			}
+			else if (collision.gameObject.tag == SCRAP_TAG)
+			{
+				if (collision.gameObject.GetComponent<ScrapInteraction>().GetState() == State.beingPlaced)
+				{
+					ChangeState(State.beingPlaced);
+				}
+			}
+		}
 	}
 
 }
