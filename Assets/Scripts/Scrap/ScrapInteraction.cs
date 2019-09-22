@@ -6,15 +6,19 @@ using Microsoft.MixedReality.Toolkit.Physics;
 using Microsoft.MixedReality.Toolkit.UI;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using UnityEngine;
+using UnityEngine.Events;
 using static ScrapConstants;
 
-public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vector2>
+public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vector2>, IMixedRealityPointerHandler
 {
 	[SerializeField] private ScrapConstants.State state;
 
 	public float defaultOffsetDistance = 2f;
     [SerializeField] private float offsetDistance;
 	public float smoothing = 0.001f;
+    public bool shoot = false;
+    public Color colorOnClip = Color.blue;
+    public UnityEvent OnPlacement = new UnityEvent();
 
     private struct PointerData
     {
@@ -58,8 +62,9 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
     private Rigidbody rb;
     private Collider collider;
-    private bool wasKinematic;
+    private Color defaultColor;
 
+    private int collideCount;
 
 	void Awake()
 	{
@@ -69,7 +74,8 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         scaleHandler = GetComponent<TransformScaleHandler>();
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
-		wasKinematic = rb.isKinematic;
+        defaultColor = GetComponent<Renderer>().material.color;
+
         offsetDistance = defaultOffsetDistance;
 	}
 
@@ -108,13 +114,6 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
             // If this is the first pointer...
             if (pointerIdToPointerMap.Count == 1)
             {
-                // Switch rigidbody to kinematic
-                if (rb != null)
-                {
-                    wasKinematic = rb.isKinematic;
-                    rb.isKinematic = true;
-                }
-
                 // Set up move logic using first pointer data
                 PointerData pointerData = pointerIdToPointerMap.Values.First();
                 IMixedRealityPointer pointer = pointerData.pointer;
@@ -211,10 +210,13 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
         if (pointerIdToPointerMap.Count == 0 && rb != null)
         {
-            ReleaseScrap(eventData);
-            //ShootScrap(eventData);
-            state = ScrapConstants.State.notPlaced;
-            rb.constraints = RigidbodyConstraints.None;
+
+            if (shoot)
+                ShootScrap(eventData);
+            else
+                ReleaseScrap(eventData);
+
+            SetState(ScrapConstants.State.notPlaced);
         }
     }
 
@@ -226,7 +228,6 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     {
         if (rb != null)
         {
-            rb.isKinematic = wasKinematic;
             if (eventData.Pointer.Controller != null)
             {
                 float speed = 20;
@@ -240,7 +241,6 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     {
         if (rb != null)
         {
-            rb.isKinematic = wasKinematic;
             if (eventData.Pointer.Controller != null)
             {
                 rb.velocity = eventData.Pointer.Controller.Velocity;
@@ -274,8 +274,47 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
 	public void SetState(ScrapConstants.State newState)
 	{
+        ScrapConstants.State oldState = state;
+
         state = newState;
-	}
+
+        // Call state transition exit function
+        switch (oldState)
+        {
+            case ScrapConstants.State.manipulating:
+                if (rb != null)
+                    rb.isKinematic = false;
+                GetComponent<Renderer>().material.color = defaultColor;
+                if (IsColliding())
+                {
+                    state = ScrapConstants.State.beingPlaced;
+                    OnPlacement.Invoke();
+                }
+                break;
+            case ScrapConstants.State.beingPlaced:
+                if (rb != null)
+                    rb.isKinematic = false;
+                break;
+            default:
+                break;
+        }
+
+        // Call state transition enter function
+        switch (state)
+        {
+            case ScrapConstants.State.manipulating:
+                if(rb != null)
+                    rb.isKinematic = true;
+                break;
+            case ScrapConstants.State.beingPlaced:
+                OnPlacement.Invoke();
+                if (rb != null)
+                    rb.isKinematic = true;
+                break;
+            default:
+                break;
+        }
+    }
 
 	public ScrapConstants.State GetState()
 	{
@@ -314,6 +353,35 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         }
 
         return handPositionMap;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        collideCount++;
+
+        if(state == ScrapConstants.State.manipulating)
+        {
+            GetComponent<Renderer>().material.color = colorOnClip;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        collideCount--;
+        if(!IsColliding() && state == ScrapConstants.State.beingPlaced)
+        {
+            SetState(ScrapConstants.State.notPlaced);
+        }
+
+        if (state == ScrapConstants.State.manipulating)
+        {
+            GetComponent<Renderer>().material.color = defaultColor;
+        }
+    }
+
+    public bool IsColliding()
+    {
+        return collideCount != 0;
     }
 
 }

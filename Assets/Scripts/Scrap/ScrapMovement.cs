@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static ScrapConstants;
 
 public class ScrapMovement : MonoBehaviour
@@ -10,7 +11,6 @@ public class ScrapMovement : MonoBehaviour
 	private ScrapInteraction scrapInteraction;
 
 	public float maxSpeed = 5f;
-
 
 	private void Awake()
 	{
@@ -34,11 +34,11 @@ public class ScrapMovement : MonoBehaviour
 		switch (scrapInteraction.GetState())
 		{
 			case State.initial:
-				//FaceForward();
-				//if (rigidbody.velocity.magnitude > maxSpeed)
-				//{
-				//	rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
-				//}
+				FaceForward();
+				if (rigidbody.velocity.magnitude > maxSpeed)
+				{
+					rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
+				}
 				break;
 			case State.manipulating:
 				break;
@@ -103,29 +103,24 @@ public class ScrapMovement : MonoBehaviour
 		ChangeState(State.notPlaced);
 	}
 
+    /*
 	private void OnCollisionStay(Collision collision)
 	{
         if (scrapInteraction.GetState() != State.manipulating && scrapInteraction.GetState() != State.beingPlaced)
         {
             ChangeState(State.beingPlaced);
+            OnPlacement.Invoke();
         }
-
-        /*
-		if (scrapInteraction.GetState() == State.notPlaced)
-		{
-			if (collision.gameObject.layer == PLATFORM_LAYER)
-			{
-				ChangeState(State.beingPlaced);
-			}
-			else if (collision.gameObject.tag == SCRAP_TAG)
-			{
-				if (collision.gameObject.GetComponent<ScrapInteraction>().GetState() == State.beingPlaced)
-				{
-					ChangeState(State.beingPlaced);
-				}
-			}
-		}*/
     }
-
+    
+    private void OnCollisionExit(Collision collision)
+    {
+        if (scrapInteraction.GetState() != State.manipulating && scrapInteraction.GetState() != State.notPlaced)
+        {
+            ChangeState(State.notPlaced);
+            rigidbody.constraints = RigidbodyConstraints.None;
+        }
+    }*/
+    
 
 }

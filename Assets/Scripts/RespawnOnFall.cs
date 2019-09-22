@@ -17,7 +17,7 @@ public class RespawnOnFall : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.zero;
+                transform.position = Camera.main.transform.position;
             }
 
             Rigidbody rb = GetComponent<Rigidbody>();
