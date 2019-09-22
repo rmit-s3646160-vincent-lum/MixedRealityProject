@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ScrapConstants;
 
 public class ScrapMovement : MonoBehaviour
 {
 	private Rigidbody rigidbody;
+	private ScrapInteraction scrapInteraction;
 
 	public float maxSpeed = 5f;
+
 
 	private void Awake()
 	{
 		rigidbody = GetComponent<Rigidbody>();
+		scrapInteraction = GetComponent<ScrapInteraction>();
 	}
 	// Start is called before the first frame update
 	void Start()
@@ -25,10 +29,24 @@ public class ScrapMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		FaceForward();
-		if (rigidbody.velocity.magnitude > maxSpeed)
+		switch (scrapInteraction.GetState())
 		{
-			rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
+			case State.initial:
+				FaceForward();
+				if (rigidbody.velocity.magnitude > maxSpeed)
+				{
+					rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
+				}
+				break;
+			case State.manipulating:
+				break;
+			case State.notPlaced:
+				break;
+			case State.beingPlaced:
+				rigidbody.isKinematic = true;
+				rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+				break;
+
 		}
 	}
 
