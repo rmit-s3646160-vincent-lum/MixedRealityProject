@@ -261,7 +261,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
             else if(Mathf.Abs(inputData.x) > xThreshold)
             {
                 // Rotate object
-                transform.localEulerAngles = transform.localEulerAngles + new Vector3(0, 15, 0);
+                //transform.localEulerAngles = transform.localEulerAngles + new Vector3(0, 15, 0);
             }
 
             
