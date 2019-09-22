@@ -3,103 +3,216 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.Physics;
+using Microsoft.MixedReality.Toolkit.UI;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using UnityEngine;
 using static ScrapConstants;
 
-public class ScrapInteraction : MonoBehaviour
+public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vector2>
 {
-	[SerializeField] private State state;
+	[SerializeField] private ScrapConstants.State state;
 
-	public float offsetDistance = 2f;
+	public float defaultOffsetDistance = 2f;
+    [SerializeField] private float offsetDistance;
 	public float smoothing = 0.001f;
-	private Vector3 translation = Vector3.zero;
 
-	[SerializeField] List<uint> pointers;
+    private struct PointerData
+    {
+        public IMixedRealityPointer pointer;
+        private Vector3 initialGrabPointInPointer;
 
-	Vector3 grabOffset;
+        public PointerData(IMixedRealityPointer pointer, Vector3 initialGrabPointInPointer) : this()
+        {
+            this.pointer = pointer;
+            this.initialGrabPointInPointer = initialGrabPointInPointer;
+        }
+
+        public bool IsNearPointer()
+        {
+            return (pointer is IMixedRealityNearPointer);
+        }
+
+        /// Returns the grab point on the manipulated object in world space
+        public Vector3 GrabPoint
+        {
+            get
+            {
+                return (pointer.Rotation * initialGrabPointInPointer) + pointer.Position;
+            }
+        }
+    }
+
+    //[SerializeField] List<uint> pointers;
+    private Dictionary<uint, PointerData> pointerIdToPointerMap = new Dictionary<uint, PointerData>();
+
+    Vector3 grabOffset;
 	Vector3 rotateStartPoint;
 
 	private TwoHandMoveLogic moveLogic;
+    private TwoHandScaleLogic scaleLogic;
+    private TwoHandRotateLogic rotateLogic;
+    private Quaternion objectToHandRotation;
+    private Quaternion targetRotationTwoHands;
+    private TransformScaleHandler scaleHandler;
 
 
-	private Rigidbody rb;
+    private Rigidbody rb;
 	private bool wasKinematic;
 
 
 	void Awake()
 	{
-		pointers = new List<uint>();
 		moveLogic = new TwoHandMoveLogic();
-		rb = GetComponent<Rigidbody>();
+        rotateLogic = new TwoHandRotateLogic();
+        scaleLogic = new TwoHandScaleLogic();
+        scaleHandler = GetComponent<TransformScaleHandler>();
+        rb = GetComponent<Rigidbody>();
 		wasKinematic = rb.isKinematic;
+        offsetDistance = defaultOffsetDistance;
 	}
 
-	public void OnPointerDown(MixedRealityPointerEventData eventData)
+    private void Update()
+    {
+        HandleKeyboardInput();
+    }
+
+    private void HandleKeyboardInput()
+    {
+        if (state == ScrapConstants.State.manipulating)
+        {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                offsetDistance += 0.1f;
+            }
+            else if (Input.GetKeyDown(KeyCode.K))
+            {
+                offsetDistance -= 0.1f;
+            }
+        }
+    }
+
+    public void OnPointerDown(MixedRealityPointerEventData eventData)
 	{
-		SetState(State.manipulating);
-		pointers.Add(eventData.Pointer.PointerId);
+		SetState(ScrapConstants.State.manipulating);
 
-		if (pointers.Count == 1)
-		{
-			if (rb != null)
-			{
-				rb.isKinematic = true;
-			}
+        uint id = eventData.Pointer.PointerId;
 
-			MixedRealityPose pointerPose = new MixedRealityPose(eventData.Pointer.Position, eventData.Pointer.Rotation);
-			MixedRealityPose hostPose = new MixedRealityPose(transform.position, transform.rotation);
+        // Add the pointer to the dictionary
+        if (!eventData.used && !pointerIdToPointerMap.ContainsKey(eventData.Pointer.PointerId))
+        {
+            Vector3 initialGrabPoint = Quaternion.Inverse(eventData.Pointer.Rotation) * (eventData.Pointer.Result.Details.Point - eventData.Pointer.Position);
+            pointerIdToPointerMap.Add(id, new PointerData(eventData.Pointer, initialGrabPoint));
 
-			moveLogic.Setup(pointerPose, eventData.Pointer.Result.Details.Point, hostPose, transform.localScale);
-		}
-		else
-		{
-			rotateStartPoint = eventData.Pointer.Position;
-		}
+            // If this is the first pointer...
+            if (pointerIdToPointerMap.Count == 1)
+            {
+                // Switch rigidbody to kinematic
+                if (rb != null)
+                {
+                    wasKinematic = rb.isKinematic;
+                    rb.isKinematic = true;
+                }
 
-		eventData.Use();
-	}
+                // Set up move logic using first pointer data
+                PointerData pointerData = pointerIdToPointerMap.Values.First();
+                IMixedRealityPointer pointer = pointerData.pointer;
+
+                Quaternion worldToPalmRotation = Quaternion.Inverse(pointer.Rotation); // Calculate relative transform from object to hand.
+                objectToHandRotation = worldToPalmRotation * transform.rotation;
+                MixedRealityPose pointerPose = new MixedRealityPose(pointer.Position, pointer.Rotation);
+                MixedRealityPose hostPose = new MixedRealityPose(transform.position, transform.rotation);
+                moveLogic.Setup(pointerPose, pointerData.GrabPoint, hostPose, transform.localScale);
+            }
+            else if(pointerIdToPointerMap.Count > 1)
+            {
+                // Set up scale and rotate logic
+                var handPositionMap = GetHandPositionMap();
+                targetRotationTwoHands = transform.rotation;
+                rotateLogic.Setup(handPositionMap, transform, RotationConstraintType.None);
+                scaleLogic.Setup(handPositionMap, transform);
+            }
+        }
+
+        if (pointerIdToPointerMap.Count > 0)
+        {
+            eventData.Use();
+        }
+    }
 
 	public void OnPointerDragged(MixedRealityPointerEventData eventData)
 	{
-		if (pointers.First() == eventData.Pointer.PointerId)
-		{
-			MixedRealityPose pointerPose = new MixedRealityPose(eventData.Pointer.Position, eventData.Pointer.Rotation);
-			Vector3 targetPosition = moveLogic.Update(pointerPose, transform.rotation, transform.localScale, false, true, MovementConstraintType.None) + translation;
+        if(pointerIdToPointerMap.Count == 0)
+        {
+            return;
+        }
+        else if(pointerIdToPointerMap.Count == 1)
+        {
+            // Handle movement
+            Debug.Assert(pointerIdToPointerMap.Count == 1);
+            PointerData pointerData = pointerIdToPointerMap.Values.First();
+            IMixedRealityPointer pointer = pointerData.pointer;
+            Quaternion targetRotation = transform.rotation;
 
+            // Update target position
+            MixedRealityPose pointerPose = new MixedRealityPose(pointer.Position, pointer.Rotation);
+            Vector3 targetPosition = moveLogic.Update(pointerPose, targetRotation, transform.localScale, false, true, MovementConstraintType.None);
+
+            // Update target position using offset distance from controller
             Vector3 grabOffset = transform.position - eventData.Pointer.Result.Details.Point;
             Vector3 offsetFromController = Vector3.Normalize(targetPosition - eventData.Pointer.Position) * offsetDistance;
             Vector3 distanceVector = targetPosition - eventData.Pointer.Position;
             targetPosition = targetPosition - distanceVector + offsetFromController + grabOffset;
 
+            // Smooth and move object to target position
             float lerpAmount = 1.0f - Mathf.Pow(smoothing, Time.deltaTime);
-			Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, lerpAmount);
-			transform.position = smoothedPosition;
-		}
-		else
-		{
+            Quaternion smoothedRotation = Quaternion.Lerp(transform.rotation, targetRotation, lerpAmount);
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, lerpAmount);
+            transform.SetPositionAndRotation(smoothedPosition, smoothedRotation);
 
-			// Rotate if not first pointer
-			float rotationAmount = (Camera.main.WorldToScreenPoint(rotateStartPoint).x - Camera.main.WorldToScreenPoint(eventData.Pointer.Position).x) * 0.25f;
-			transform.Rotate(0, rotationAmount, 0);
+        }
+        else
+        {
+            // Handle rotation and scaling
+            var targetPosition = transform.position;
+            var targetScale = transform.localScale;
+            var handPositionMap = GetHandPositionMap();
 
-			rotateStartPoint = eventData.Pointer.Position;
+            targetScale = scaleLogic.UpdateMap(handPositionMap);
+            targetRotationTwoHands = rotateLogic.Update(handPositionMap, targetRotationTwoHands, RotationConstraintType.None);
 
-		}
-	}
+            // Two-handed Rotate
+            float lerpAmount = 1.0f - Mathf.Pow(smoothing, Time.deltaTime);
+            Quaternion smoothedRotation = Quaternion.Lerp(transform.rotation, targetRotationTwoHands, lerpAmount);
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, lerpAmount);
+            transform.SetPositionAndRotation(smoothedPosition, smoothedRotation);
+
+            // Two-handed Scale
+            if (scaleHandler != null)
+            {
+                // Apply TransformScaleHandler contraints
+                targetScale = scaleHandler.ClampScale(targetScale);
+            }
+            transform.localScale = Vector3.Lerp(transform.localScale, targetScale, lerpAmount);
+        }
+    }
 
 	public void OnPointerUp(MixedRealityPointerEventData eventData)
 	{
-		pointers.Remove(eventData.Pointer.PointerId);
+        uint id = eventData.Pointer.PointerId;
 
-		if (pointers.Count == 0)
-		{
+        if (pointerIdToPointerMap.ContainsKey(id))
+        {
+            pointerIdToPointerMap.Remove(id);
+
+        }
+		eventData.Use();
+
+        if (pointerIdToPointerMap.Count == 0 && rb != null)
+        {
             ReleaseScrap(eventData);
             //ShootScrap(eventData);
-		}
-
-		eventData.Use();
-	}
+        }
+    }
 
 	public void OnPointerClicked(MixedRealityPointerEventData eventData)
 	{
@@ -127,17 +240,76 @@ public class ScrapInteraction : MonoBehaviour
             if (eventData.Pointer.Controller != null)
             {
                 rb.velocity = eventData.Pointer.Controller.Velocity;
+                offsetDistance = defaultOffsetDistance;
             }
         }
     }
 
-	public void SetState(State state)
+    public void OnScroll(Vector2 inputData)
+    {
+        float yThreshold = 0.5f;
+        float xThreshold = 0.5f;
+
+        if(state == ScrapConstants.State.manipulating)
+        {
+            if(Mathf.Abs(inputData.y) > yThreshold)
+            {
+                // Translate toward/away from source
+                offsetDistance += inputData.y * 0.1f;
+                Mathf.Clamp(offsetDistance, defaultOffsetDistance, 100);
+            }
+            else if(Mathf.Abs(inputData.x) > xThreshold)
+            {
+                // Rotate object
+                transform.localEulerAngles = transform.localEulerAngles + new Vector3(0, 15, 0);
+            }
+
+            
+        }
+    }
+
+	public void SetState(ScrapConstants.State state)
 	{
 		this.state = state;
 	}
 
-	public State GetState()
+	public ScrapConstants.State GetState()
 	{
 		return state;
 	}
+
+    public void OnInputChanged(InputEventData<Vector2> eventData)
+    {
+        // Check if input was from first focus controller
+        if(state == ScrapConstants.State.manipulating)
+        {
+            if (eventData.MixedRealityInputAction.Description == "Scroll")
+            {
+                // Change offset distance with scrolling
+                OnScroll(eventData.InputData);
+            }
+        }
+    }
+
+    protected override void RegisterHandlers()
+    {
+        InputSystem?.RegisterHandler<IMixedRealityInputHandler<Vector2>>(this);
+    }
+
+    protected override void UnregisterHandlers()
+    {
+        InputSystem?.UnregisterHandler<IMixedRealityInputHandler<Vector2>>(this);
+    }
+
+    private Dictionary<uint, Vector3> GetHandPositionMap()
+    {
+        var handPositionMap = new Dictionary<uint, Vector3>();
+        foreach (var item in pointerIdToPointerMap)
+        {
+            handPositionMap.Add(item.Key, item.Value.pointer.Position);
+        }
+
+        return handPositionMap;
+    }
+
 }

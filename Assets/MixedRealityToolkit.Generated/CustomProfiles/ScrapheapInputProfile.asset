@@ -22,41 +22,6 @@ MonoBehaviour:
     runtimePlatform: 8
     deviceManagerProfile: {fileID: 0}
   - componentType:
-      reference: Microsoft.MixedReality.Toolkit.OpenVR.Input.OpenVRDeviceManager,
-        Microsoft.MixedReality.Toolkit.Providers.OpenVR
-    componentName: OpenVR Device Manager
-    priority: 0
-    runtimePlatform: 7
-    deviceManagerProfile: {fileID: 0}
-  - componentType:
-      reference: Microsoft.MixedReality.Toolkit.Input.UnityInput.UnityJoystickManager,
-        Microsoft.MixedReality.Toolkit
-    componentName: Unity Joystick Manager
-    priority: 0
-    runtimePlatform: -1
-    deviceManagerProfile: {fileID: 0}
-  - componentType:
-      reference: Microsoft.MixedReality.Toolkit.Input.UnityInput.UnityTouchDeviceManager,
-        Microsoft.MixedReality.Toolkit
-    componentName: Unity Touch Device Manager
-    priority: 0
-    runtimePlatform: -1
-    deviceManagerProfile: {fileID: 0}
-  - componentType:
-      reference: Microsoft.MixedReality.Toolkit.Windows.Input.WindowsSpeechInputProvider,
-        Microsoft.MixedReality.Toolkit.Providers.WindowsVoiceInput
-    componentName: Windows Speech Input
-    priority: 0
-    runtimePlatform: 25
-    deviceManagerProfile: {fileID: 0}
-  - componentType:
-      reference: Microsoft.MixedReality.Toolkit.Windows.Input.WindowsDictationInputProvider,
-        Microsoft.MixedReality.Toolkit.Providers.WindowsVoiceInput
-    componentName: Windows Dictation Input
-    priority: 0
-    runtimePlatform: 25
-    deviceManagerProfile: {fileID: 0}
-  - componentType:
       reference: Microsoft.MixedReality.Toolkit.Input.HandJointService, Microsoft.MixedReality.Toolkit
     componentName: Hand Joint Service
     priority: 0
@@ -67,28 +32,15 @@ MonoBehaviour:
     componentName: Input Simulation Service
     priority: 0
     runtimePlatform: 208
-    deviceManagerProfile: {fileID: 11400000, guid: 41478039094d47641bf4e09c20e61a5a,
+    deviceManagerProfile: {fileID: 11400000, guid: 85cf32e7e84816145bb976e982f637a0,
       type: 2}
-  - componentType:
-      reference: Microsoft.MixedReality.Toolkit.Input.InputRecordingService, Microsoft.MixedReality.Toolkit.Services.InputAnimation
-    componentName: Input Recording Service
-    priority: 0
-    runtimePlatform: -1
-    deviceManagerProfile: {fileID: 11400000, guid: d0f5a7f6d1f9f0b4cb6eb35c797a0f04,
-      type: 2}
-  - componentType:
-      reference: Microsoft.MixedReality.Toolkit.Input.InputPlaybackService, Microsoft.MixedReality.Toolkit.Services.InputAnimation
-    componentName: Input Playback Service
-    priority: 0
-    runtimePlatform: -1
-    deviceManagerProfile: {fileID: 0}
   focusProviderType:
     reference: Microsoft.MixedReality.Toolkit.Input.FocusProvider, Microsoft.MixedReality.Toolkit.Services.InputSystem
   raycastProviderType:
     reference: Microsoft.MixedReality.Toolkit.Input.DefaultRaycastProvider, Microsoft.MixedReality.Toolkit.Services.InputSystem
   focusQueryBufferSize: 128
   focusIndividualCompoundCollider: 0
-  inputActionsProfile: {fileID: 11400000, guid: 723eb97b02944311b92861f473eee53e,
+  inputActionsProfile: {fileID: 11400000, guid: 7dcc92031c3de834a9d73ac38f447f2d,
     type: 2}
   inputActionRulesProfile: {fileID: 11400000, guid: 03945385d89102f41855bc8f5116b199,
     type: 2}
@@ -97,7 +49,7 @@ MonoBehaviour:
   speechCommandsProfile: {fileID: 11400000, guid: e8d0393e66374dae9646851a57dc6bc1,
     type: 2}
   enableControllerMapping: 1
-  controllerMappingProfile: {fileID: 11400000, guid: 39ded1fd0711a0c448413d0e1ec4f7f3,
+  controllerMappingProfile: {fileID: 11400000, guid: 9ea471cda4638414a9d4990426424e80,
     type: 2}
   controllerVisualizationProfile: {fileID: 11400000, guid: 772a40238c055c74d842ecf2150b5c2e,
     type: 2}
