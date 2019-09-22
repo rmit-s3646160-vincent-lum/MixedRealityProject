@@ -57,7 +57,8 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
 
     private Rigidbody rb;
-	private bool wasKinematic;
+    private Collider collider;
+    private bool wasKinematic;
 
 
 	void Awake()
@@ -67,6 +68,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         scaleLogic = new TwoHandScaleLogic();
         scaleHandler = GetComponent<TransformScaleHandler>();
         rb = GetComponent<Rigidbody>();
+        collider = GetComponent<Collider>();
 		wasKinematic = rb.isKinematic;
         offsetDistance = defaultOffsetDistance;
 	}
@@ -211,6 +213,8 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             ReleaseScrap(eventData);
             //ShootScrap(eventData);
+            state = ScrapConstants.State.notPlaced;
+            rb.constraints = RigidbodyConstraints.None;
         }
     }
 
@@ -268,9 +272,9 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         }
     }
 
-	public void SetState(ScrapConstants.State state)
+	public void SetState(ScrapConstants.State newState)
 	{
-		this.state = state;
+        state = newState;
 	}
 
 	public ScrapConstants.State GetState()

@@ -34,11 +34,11 @@ public class ScrapMovement : MonoBehaviour
 		switch (scrapInteraction.GetState())
 		{
 			case State.initial:
-				FaceForward();
-				if (rigidbody.velocity.magnitude > maxSpeed)
-				{
-					rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
-				}
+				//FaceForward();
+				//if (rigidbody.velocity.magnitude > maxSpeed)
+				//{
+				//	rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
+				//}
 				break;
 			case State.manipulating:
 				break;
@@ -105,6 +105,12 @@ public class ScrapMovement : MonoBehaviour
 
 	private void OnCollisionStay(Collision collision)
 	{
+        if (scrapInteraction.GetState() != State.manipulating && scrapInteraction.GetState() != State.beingPlaced)
+        {
+            ChangeState(State.beingPlaced);
+        }
+
+        /*
 		if (scrapInteraction.GetState() == State.notPlaced)
 		{
 			if (collision.gameObject.layer == PLATFORM_LAYER)
@@ -118,7 +124,8 @@ public class ScrapMovement : MonoBehaviour
 					ChangeState(State.beingPlaced);
 				}
 			}
-		}
-	}
+		}*/
+    }
+
 
 }
