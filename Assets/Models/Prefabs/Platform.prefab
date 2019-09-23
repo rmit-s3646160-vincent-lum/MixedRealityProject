@@ -2466,7 +2466,7 @@ GameObject:
   - component: {fileID: 3005278664814952852}
   - component: {fileID: 3005278664813855700}
   - component: {fileID: 620258377199778397}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2543,7 +2543,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 77c0e6c681e783a4b8a8fc55cd78afff, type: 3}
 --- !u!1 &3005278664815861154
