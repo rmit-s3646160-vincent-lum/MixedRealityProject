@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - BrushStroke
-  - Enemy
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -16,8 +14,12 @@ TagManager:
   - 
   - 
   - PostProcessing
+<<<<<<< HEAD
   - Scrap
   - Light
+=======
+  - 
+>>>>>>> Bill's-Branch
   - 
   - 
   - 
@@ -39,6 +41,7 @@ TagManager:
   - 
   - 
   - 
+  - Spatial Awareness
   m_SortingLayers:
   - name: Default
     uniqueID: 0
