@@ -384,4 +384,8 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         return collideCount != 0;
     }
 
+    public void ToggleShoot()
+    {
+        shoot = !shoot;
+    }
 }

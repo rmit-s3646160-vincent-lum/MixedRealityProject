@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5770002446140100168}
   - component: {fileID: 5770002446140100165}
   - component: {fileID: 5770002446140100166}
+  - component: {fileID: 1488696261219465995}
   m_Layer: 0
   m_Name: ScrapBase
   m_TagString: Untagged
@@ -144,7 +145,7 @@ MonoBehaviour:
   isFocusRequired: 1
   state: 0
   defaultOffsetDistance: 2
-  offsetDistance: 2
+  offsetDistance: 0.3
   smoothing: 0.001
   shoot: 0
   colorOnClip: {r: 1, g: 0.5214751, b: 0, a: 0.32156864}
@@ -286,3 +287,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1488696261219465995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5770002446140100285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19fe7721a0743104baae38e46537705b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 1
+  InputAction:
+    id: 7
+    description: Grip Press
+    axisConstraint: 3
+  MarkEventsAsUsed: 1
+  OnInputActionStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5770002446140100164}
+        m_MethodName: ToggleShoot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Microsoft.MixedReality.Toolkit.Input.InputActionUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  OnInputActionEnded:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Microsoft.MixedReality.Toolkit.Input.InputActionUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
