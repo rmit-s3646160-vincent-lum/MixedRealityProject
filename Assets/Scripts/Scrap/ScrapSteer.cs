@@ -4,156 +4,49 @@ using UnityEngine;
 
 public class ScrapSteer : MonoBehaviour
 {
-	public float mapWidthBound = 10f;
-	public float mapHeightBound = 10f;
+	public ScrapPool scrapPool;
+	private float maxBound = 6;
+	private float minBound = 4;
 
-	public float seperateDistance = 5f;
+	private float seperateDistance = 1f;
 
-	public float seperateForceScale = 3f;
-	public float alignForceScale = 1f;
-	public float cohesionForceScale = 2f;
-	public float boundForceScale = 2f;
+	private float seperateForceScale = 0.1f;
+	private float boundForceScale = 0.1f;
 
-	private void Awake()
+	public Vector3 GetForce()
 	{
-	}
-
-	// Start is called before the first frame update
-	void Start()
-	{
-
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
-	public Vector3 GetFlockForce(List<Transform> flockList)
-	{
-
 		Vector3 force = Vector3.zero;
-		if (flockList.Count == 0)
-		{
-			force += new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized * 1;
-		}
-		else
-		{
-			force += Seperate(flockList);
-			force += Align(flockList);
-			force += Cohesion(flockList);
-		}
-		force += Bound(flockList);
+		force += Seperate();
+		force += Bound();
 		return force;
 	}
 
-	private Vector3 Seperate(List<Transform> flockList)
+	private Vector3 Seperate()
 	{
 		Vector3 force = Vector3.zero;
-		foreach (Transform trans in flockList)
+		Debug.Log(scrapPool.scraps);
+		foreach (GameObject scrap in scrapPool.scraps)
 		{
-			Vector3 difference = transform.position - trans.position;
+			if (scrap == gameObject)
+			{
+				continue;
+			}
+			Vector3 difference = transform.position - scrap.transform.position;
 			if (difference.magnitude <= seperateDistance)
 			{
-				force += difference.normalized / difference.magnitude;
+				force += difference.normalized / (1 / difference.magnitude);
 			}
 		}
-		return force.normalized * seperateForceScale;
+		return force * seperateForceScale;
 	}
 
-	private Vector3 Align(List<Transform> flockList)
+	private Vector3 Bound()
 	{
 		Vector3 force = Vector3.zero;
-		foreach (Transform trans in flockList)
-		{
-			force += trans.GetComponent<Rigidbody>().velocity;
-		}
-		return force.normalized * alignForceScale;
-	}
-
-	private Vector3 Cohesion(List<Transform> flockList)
-	{
-		Vector3 force = Vector3.zero;
-		if (flockList.Count == 0)
-		{
-			return force;
-		}
-		int count = 0;
-		foreach (Transform trans in flockList)
-		{
-			count++;
-			force += trans.position;
-		}
-		force /= count;
-		force -= transform.position;
-		return force.normalized * cohesionForceScale;
-	}
-
-	private Vector3 Bound(List<Transform> flockList)
-	{
-		Vector3 force = Vector3.zero;
-		if (Mathf.Abs(transform.position.x) > mapWidthBound)
-		{
-			force += new Vector3(-transform.position.x, 0, 0);
-		}
-		if (Mathf.Abs(transform.position.z) > mapHeightBound)
-		{
-			force += new Vector3(0, 0, -transform.position.z);
-		}
+		Vector3 position = transform.position;
+		position.y = 0;
+		force += position.magnitude > maxBound ? -position : Vector3.zero;
+		force += position.magnitude < minBound ? position : Vector3.zero;
 		return force.normalized * boundForceScale;
 	}
-
-	//private Vector2 Align(EnemyFlock flock)
-	//{
-	//	if (flock.GetCharacterRigidbody2D().velocity == Vector2.zero)
-	//	{
-	//		return Vector2.zero;
-	//	}
-	//	Vector2 force = Vector2.zero;
-	//	foreach (EnemyManager survivor in flock.GetEnemys())
-	//	{
-	//		force += survivor.GetComponent<Rigidbody2D>().velocity;
-	//	}
-	//	return force.normalized * ALIGN_FORCE_SCALE;
-	//}
-
-	//private Vector2 GiveWay(EnemyFlock flock)
-	//{
-	//	Vector2 force = Vector2.zero;
-	//	Vector2 playerForward = flock.GetCharacterRigidbody2D().velocity;
-	//	if (playerForward == Vector2.zero)
-	//	{
-	//		return force;
-	//	}
-	//	playerForward.Normalize();
-	//	Vector2 playetToThis = transform.position - flock.GetCharacterTrans().position;
-	//	playetToThis.Normalize();
-	//	float angle = Vector2.Angle(playerForward, playetToThis);
-	//	if (angle <= AVOID_ANGLE)
-	//	{
-	//		force = playetToThis - playerForward;
-	//	}
-	//	return force.normalized * GIVE_WAY_FORCE_SCALE;
-	//}
-
-	//public Vector2 GetFleeingForce(List<Transform> enemyTransforms)
-	//{
-	//	Vector2 force = Vector2.zero;
-	//	force += Flee(enemyTransforms);
-	//	return force;
-	//}
-
-
-	//private Vector2 Flee(List<Transform> enemyTransforms)
-	//{
-	//	Vector2 force = Vector2.zero;
-	//	foreach (Transform enemyTrans in enemyTransforms)
-	//	{
-	//		Vector2 difference = transform.position - enemyTrans.position;
-	//		force += difference.normalized / difference.magnitude;
-	//	}
-	//	return force.normalized * FLEE_FORCE_SCALE;
-	//}
-
 }

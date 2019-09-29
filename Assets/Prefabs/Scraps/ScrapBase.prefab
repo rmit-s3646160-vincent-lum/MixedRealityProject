@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5770002446140100167}
   - component: {fileID: 5770002446140100164}
   - component: {fileID: 782772389125746701}
+  - component: {fileID: 6796884556013078917}
   - component: {fileID: 5770002446140100168}
   - component: {fileID: 5770002446140100165}
   - component: {fileID: 5770002446140100166}
@@ -250,6 +251,24 @@ MonoBehaviour:
   alwaysShow: 0
   labelPrefab: {fileID: 602971701163740718, guid: 363b504c39813cf4482e0ddf3e16129a,
     type: 3}
+--- !u!114 &6796884556013078917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5770002446140100285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92738048557117d429871bc3aeb143c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrapPool: {fileID: 0}
+  maxBound: 20
+  minBound: 10
+  seperateDistance: 5
+  seperateForceScale: 3
+  boundForceScale: 2
 --- !u!114 &5770002446140100168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5264c89a65d64e44abcb5ea80baa51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrapSteer: {fileID: 6796884556013078917}
   maxSpeed: 5
 --- !u!114 &5770002446140100165
 MonoBehaviour:

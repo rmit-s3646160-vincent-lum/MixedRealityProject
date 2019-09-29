@@ -5,9 +5,9 @@ using UnityEngine;
 public class ScrapPool : MonoBehaviour
 {
 	public List<Transform> spawningSpots;
-	public GameObject enemyPrefab;
+	public List<GameObject> scrapPrefabs;
 	public int maxNum;
-	private List<GameObject> enemies = new List<GameObject>();
+	public List<GameObject> scraps = new List<GameObject>();
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -22,23 +22,25 @@ public class ScrapPool : MonoBehaviour
 
 	public void PullOneEnemy()
 	{
-		if (enemies.Count >= maxNum)
+		if (scraps.Count >= maxNum)
 		{
 			return;
 		}
 		Transform spot = spawningSpots[Random.Range(0, spawningSpots.Count)];
-		foreach (GameObject survivor in enemies)
+		foreach (GameObject scrap in scraps)
 		{
-			if (!survivor.activeSelf)
+			if (!scrap.activeSelf)
 			{
-				survivor.transform.SetParent(spot);
-				survivor.transform.position = spot.position;
-				survivor.SetActive(true);
+				scrap.transform.SetParent(spot);
+				scrap.transform.position = spot.position;
+				scrap.SetActive(true);
+				scrap.GetComponent<ScrapSteer>().scrapPool = this;
 				return;
 			}
 		}
-		GameObject newEnemy = Instantiate(enemyPrefab, spot.position, spot.rotation, transform);
-		enemies.Add(newEnemy);
+		GameObject newScrap = Instantiate(scrapPrefabs[Random.Range(0, scrapPrefabs.Count)], spot.position, spot.rotation, transform);
+		newScrap.GetComponent<ScrapSteer>().scrapPool = this;
+		scraps.Add(newScrap);
 	}
 
 	private Vector2 GetRandomForce()

@@ -1,19 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using static ScrapConstants;
+using Random = UnityEngine.Random;
 
 public class ScrapMovement : MonoBehaviour
 {
+	public ScrapSteer scrapSteer;
 	private Rigidbody rigidbody;
 	private Collider collider;
 	private ScrapInteraction scrapInteraction;
 
-	public float maxSpeed = 5f;
+	public float maxSpeed = 2f;
+	public Vector3 currentVelocity;
 
 	private void Awake()
 	{
+		currentVelocity = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
 		rigidbody = GetComponent<Rigidbody>();
 		scrapInteraction = GetComponent<ScrapInteraction>();
 		collider = GetComponent<Collider>();
@@ -34,11 +39,8 @@ public class ScrapMovement : MonoBehaviour
 		switch (scrapInteraction.GetState())
 		{
 			case State.initial:
-				FaceForward();
-				if (rigidbody.velocity.magnitude > maxSpeed)
-				{
-					rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
-				}
+				ApplyForce(scrapSteer.GetForce());
+				UpdatePosition();
 				break;
 			case State.manipulating:
 				break;
@@ -50,25 +52,31 @@ public class ScrapMovement : MonoBehaviour
 		}
 	}
 
+	private void UpdatePosition()
+	{
+		transform.position += currentVelocity * Time.deltaTime;
+		FaceForward();
+	}
+
 	private void FaceForward()
 	{
-		if (rigidbody.velocity != Vector3.zero)
+		if (currentVelocity != Vector3.zero)
 		{
-			float angle = rigidbody.velocity.z < 0 ?
-				Vector3.Angle(new Vector3(1, 0, 0), rigidbody.velocity.normalized)
-				: -Vector3.Angle(new Vector3(1, 0, 0), rigidbody.velocity.normalized);
+			float angle = currentVelocity.z < 0 ?
+				Vector3.Angle(new Vector3(1, 0, 0), currentVelocity.normalized)
+				: -Vector3.Angle(new Vector3(1, 0, 0), currentVelocity.normalized);
 			transform.rotation = Quaternion.Euler(0, angle, 0);
 		}
 	}
 
-	public void StopMove()
-	{
-		rigidbody.velocity = Vector3.zero;
-	}
-
 	public void ApplyForce(Vector3 force)
 	{
-		rigidbody.AddForce(force, ForceMode.Impulse);
+		currentVelocity += force;
+		if (currentVelocity.magnitude > maxSpeed)
+		{
+			currentVelocity.Normalize();
+			currentVelocity *= maxSpeed;
+		}
 	}
 
 	public void ChangeState(State state)
@@ -103,7 +111,7 @@ public class ScrapMovement : MonoBehaviour
 		ChangeState(State.notPlaced);
 	}
 
-    /*
+	/*
 	private void OnCollisionStay(Collision collision)
 	{
         if (scrapInteraction.GetState() != State.manipulating && scrapInteraction.GetState() != State.beingPlaced)
@@ -121,6 +129,6 @@ public class ScrapMovement : MonoBehaviour
             rigidbody.constraints = RigidbodyConstraints.None;
         }
     }*/
-    
+
 
 }
