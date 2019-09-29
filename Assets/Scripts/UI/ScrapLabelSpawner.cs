@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ScrapLabel : MonoBehaviour
+public class ScrapLabelSpawner : MonoBehaviour
 {
+    public string nameText;
     [TextArea]
-    public string text;
+    public string descriptionText;
     public bool alwaysShow = false;
-    public GameObject labelPrefab;
+    public ScrapLabel labelPrefab;
     Transform label;
     Transform canvas;
     IMixedRealityPointer pointer;
@@ -25,13 +26,15 @@ public class ScrapLabel : MonoBehaviour
 
         // Instantiate label
         label = Instantiate(labelPrefab, canvas).transform;
-        label.name = text;
-        label.gameObject.SetActive(false);
 
         // Set text
-        var labelText = label.GetComponentInChildren<TextMeshProUGUI>();
-        if (labelText != null)
-            labelText.text = text;
+        var sl = label.GetComponent<ScrapLabel>();
+        sl.SetNameText(nameText);
+        sl.SetDescriptionText(descriptionText);
+        sl.ShowDescription(false);
+
+        if(!alwaysShow)
+            label.gameObject.SetActive(false);
     }
 
     void Update()
@@ -58,6 +61,18 @@ public class ScrapLabel : MonoBehaviour
 
         label.gameObject.SetActive(false);
         pointer = null;
+    }
+
+    public void OnPointerDown(MixedRealityPointerEventData eventData)
+    {
+        // Show description
+        label.GetComponent<ScrapLabel>().ShowDescription(true);
+    }
+
+    public void OnPointerUp(MixedRealityPointerEventData eventData)
+    {
+        // Hide description
+        label.GetComponent<ScrapLabel>().ShowDescription(false);
     }
 
     public void OnDestroy()

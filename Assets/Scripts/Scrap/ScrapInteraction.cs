@@ -21,6 +21,10 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     public UnityEvent OnPlacement = new UnityEvent();
     public FocusEvent OnHoverEnter = new FocusEvent();
     public FocusEvent OnHoverExit = new FocusEvent();
+    public PointerUnityEvent OnPointerUpEvent = new PointerUnityEvent();
+    public PointerUnityEvent OnPointerDownEvent = new PointerUnityEvent();
+    public PointerUnityEvent OnPointerClickEvent = new PointerUnityEvent();
+
 
 
     private struct PointerData
@@ -141,6 +145,8 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             eventData.Use();
         }
+
+        OnPointerDownEvent.Invoke(eventData);
     }
 
 	public void OnPointerDragged(MixedRealityPointerEventData eventData)
@@ -221,11 +227,14 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
             SetState(ScrapConstants.State.notPlaced);
         }
+
+        OnPointerUpEvent.Invoke(eventData);
     }
 
 	public void OnPointerClicked(MixedRealityPointerEventData eventData)
 	{
-	}
+        OnPointerClickEvent.Invoke(eventData);
+    }
 
     public void OnFocusEnter(FocusEventData eventData)
     {

@@ -196,6 +196,43 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: FocusEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  OnPointerUpEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 782772389125746701}
+        m_MethodName: OnPointerUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Microsoft.MixedReality.Toolkit.Input.PointerUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  OnPointerDownEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 782772389125746701}
+        m_MethodName: OnPointerDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Microsoft.MixedReality.Toolkit.Input.PointerUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  OnPointerClickEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Microsoft.MixedReality.Toolkit.Input.PointerUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &782772389125746701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,9 +245,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56382002a072c6e48bd902cbe38d3a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: JUNK
+  nameText: JUNK
+  descriptionText: Just a piece of scrap with no particularly distinguishing features.
   alwaysShow: 0
-  labelPrefab: {fileID: 9198832185710961958, guid: 363b504c39813cf4482e0ddf3e16129a,
+  labelPrefab: {fileID: 602971701163740718, guid: 363b504c39813cf4482e0ddf3e16129a,
     type: 3}
 --- !u!114 &5770002446140100168
 MonoBehaviour:
