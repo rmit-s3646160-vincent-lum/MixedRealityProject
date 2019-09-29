@@ -27,19 +27,9 @@ public class ScrapPool : MonoBehaviour
 			return;
 		}
 		Transform spot = spawningSpots[Random.Range(0, spawningSpots.Count)];
-		foreach (GameObject scrap in scraps)
-		{
-			if (!scrap.activeSelf)
-			{
-				scrap.transform.SetParent(spot);
-				scrap.transform.position = spot.position;
-				scrap.SetActive(true);
-				scrap.GetComponent<ScrapSteer>().scrapPool = this;
-				return;
-			}
-		}
 		GameObject newScrap = Instantiate(scrapPrefabs[Random.Range(0, scrapPrefabs.Count)], spot.position, spot.rotation, transform);
 		newScrap.GetComponent<ScrapSteer>().scrapPool = this;
+		newScrap.GetComponent<RespawnOnFall>().scrapPool = this;
 		scraps.Add(newScrap);
 	}
 

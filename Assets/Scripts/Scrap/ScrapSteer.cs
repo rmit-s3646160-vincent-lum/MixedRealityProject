@@ -24,10 +24,13 @@ public class ScrapSteer : MonoBehaviour
 	private Vector3 Seperate()
 	{
 		Vector3 force = Vector3.zero;
-		Debug.Log(scrapPool.scraps);
 		foreach (GameObject scrap in scrapPool.scraps)
 		{
 			if (scrap == gameObject)
+			{
+				continue;
+			}
+			if (scrap == null)
 			{
 				continue;
 			}
