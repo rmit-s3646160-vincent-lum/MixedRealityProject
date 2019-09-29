@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using static ScrapConstants;
 
-public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vector2>, IMixedRealityPointerHandler
+public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vector2>, IMixedRealityPointerHandler, IMixedRealityFocusHandler
 {
 	[SerializeField] private ScrapConstants.State state;
 
@@ -19,6 +19,9 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     public bool shoot = false;
     public Color colorOnClip = Color.blue;
     public UnityEvent OnPlacement = new UnityEvent();
+    public FocusEvent OnHoverEnter = new FocusEvent();
+    public FocusEvent OnHoverExit = new FocusEvent();
+
 
     private struct PointerData
     {
@@ -224,6 +227,18 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 	{
 	}
 
+    public void OnFocusEnter(FocusEventData eventData)
+    {
+        if (OnHoverEnter != null)
+            OnHoverEnter.Invoke(eventData);
+    }
+
+    public void OnFocusExit(FocusEventData eventData)
+    {
+        if (OnHoverExit != null)
+            OnHoverExit.Invoke(eventData);
+    }
+
     public void ShootScrap(MixedRealityPointerEventData eventData)
     {
         if (rb != null)
@@ -329,7 +344,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
             if (eventData.MixedRealityInputAction.Description == "Scroll")
             {
                 // Change offset distance with scrolling
-                OnScroll(eventData.InputData);
+                //OnScroll(eventData.InputData);
             }
         }
     }
@@ -387,5 +402,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     public void ToggleShoot()
     {
         shoot = !shoot;
+        // Need to move this logic to the controller instead of scrap
     }
+
 }
