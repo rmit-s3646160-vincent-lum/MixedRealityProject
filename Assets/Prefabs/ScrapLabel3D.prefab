@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7001896740404999253}
   - component: {fileID: 6338451102686665408}
   - component: {fileID: 4439130162798924327}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Description text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 1678948730780940496}
   - component: {fileID: 8661250037197859013}
   - component: {fileID: 8335786218123416379}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 862157881941227128}
   - component: {fileID: 6833607763797754609}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScrapLabel3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5657324239170340491}
   - component: {fileID: 723904302993846406}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

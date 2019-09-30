@@ -25,8 +25,6 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     public PointerUnityEvent OnPointerDownEvent = new PointerUnityEvent();
     public PointerUnityEvent OnPointerClickEvent = new PointerUnityEvent();
 
-
-
     private struct PointerData
     {
         public IMixedRealityPointer pointer;
@@ -53,23 +51,19 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         }
     }
 
-    //[SerializeField] List<uint> pointers;
-    private Dictionary<uint, PointerData> pointerIdToPointerMap = new Dictionary<uint, PointerData>();
+    Dictionary<uint, PointerData> pointerIdToPointerMap = new Dictionary<uint, PointerData>();
+	TwoHandMoveLogic moveLogic;
+    TwoHandScaleLogic scaleLogic;
+    TwoHandRotateLogic rotateLogic;
+    Quaternion objectToHandRotation;
+    Quaternion targetRotationTwoHands;
+    TransformScaleHandler scaleHandler;
+    Vector3 dragPos;
+    Vector3 dragVelocity;
 
-    Vector3 grabOffset;
-	Vector3 rotateStartPoint;
-
-	private TwoHandMoveLogic moveLogic;
-    private TwoHandScaleLogic scaleLogic;
-    private TwoHandRotateLogic rotateLogic;
-    private Quaternion objectToHandRotation;
-    private Quaternion targetRotationTwoHands;
-    private TransformScaleHandler scaleHandler;
-
-
-    private Rigidbody rb;
-    private Collider collider;
-    private Color defaultColor;
+    Rigidbody rb;
+    Collider collider;
+    Color defaultColor;
 
     private int collideCount;
 
@@ -130,6 +124,8 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
                 MixedRealityPose pointerPose = new MixedRealityPose(pointer.Position, pointer.Rotation);
                 MixedRealityPose hostPose = new MixedRealityPose(transform.position, transform.rotation);
                 moveLogic.Setup(pointerPose, pointerData.GrabPoint, hostPose, transform.localScale);
+
+                dragPos = transform.position;
             }
             else if(pointerIdToPointerMap.Count > 1)
             {
@@ -178,6 +174,10 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
             Quaternion smoothedRotation = Quaternion.Lerp(transform.rotation, targetRotation, lerpAmount);
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, lerpAmount);
             transform.SetPositionAndRotation(smoothedPosition, smoothedRotation);
+
+            // Update velocity
+            dragVelocity = (transform.position - dragPos) / Time.deltaTime;
+            dragPos = transform.position;
 
         }
         else
@@ -267,7 +267,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             if (eventData.Pointer.Controller != null)
             {
-                rb.velocity = eventData.Pointer.Controller.Velocity;
+                rb.velocity = dragVelocity;
                 offsetDistance = defaultOffsetDistance;
             }
         }
