@@ -17,15 +17,12 @@ public class ScrapLabelSpawner : MonoBehaviour
 
 	void Start()
 	{
-		// Get canvas
-		var canvasComponent = FindObjectOfType<Canvas>();
-		if (labelPrefab == null || canvasComponent == null)
+		// Remove script if no label prefab set
+		if (labelPrefab == null)
 			Destroy(gameObject);
 
-		canvas = canvasComponent.transform;
-
 		// Instantiate label
-		label = Instantiate(labelPrefab, canvas).transform;
+		label = Instantiate(labelPrefab).transform;
 
 		// Set text
 		var sl = label.GetComponent<ScrapLabel>();
@@ -41,7 +38,7 @@ public class ScrapLabelSpawner : MonoBehaviour
 	{
 		if (pointer != null)
 		{
-			label.position = Camera.main.WorldToScreenPoint(pointer.Result.Details.Point);
+			label.position = pointer.Result.Details.Point;
 		}
 	}
 
@@ -77,6 +74,7 @@ public class ScrapLabelSpawner : MonoBehaviour
 
 	public void OnDestroy()
 	{
-		Destroy(label.gameObject);
+        if(label != null)
+		    Destroy(label.gameObject);
 	}
 }

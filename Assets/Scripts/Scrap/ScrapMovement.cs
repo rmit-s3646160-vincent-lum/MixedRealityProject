@@ -13,8 +13,8 @@ public class ScrapMovement : MonoBehaviour
 	private Collider collider;
 	private ScrapInteraction scrapInteraction;
 
-	public float maxSpeed = 1f;
-	public Vector3 currentVelocity;
+	private float maxSpeed = 1f;
+	private Vector3 currentVelocity;
 
 	private void Awake()
 	{

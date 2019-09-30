@@ -196,6 +196,11 @@ PrefabInstance:
       propertyPath: spawningSpots.Array.data[2]
       value: 
       objectReference: {fileID: 4408412621844314393}
+    - target: {fileID: 4865322168691319938, guid: 315beda7680973e4fb76d9e982a09125,
+        type: 3}
+      propertyPath: maxNum
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4386610010840987828, guid: 315beda7680973e4fb76d9e982a09125,
         type: 3}
       propertyPath: m_LocalPosition.x

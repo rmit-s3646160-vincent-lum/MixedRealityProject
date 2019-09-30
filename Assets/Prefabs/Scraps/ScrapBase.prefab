@@ -249,7 +249,7 @@ MonoBehaviour:
   nameText: JUNK
   descriptionText: Just a piece of scrap with no particularly distinguishing features.
   alwaysShow: 0
-  labelPrefab: {fileID: 602971701163740718, guid: 363b504c39813cf4482e0ddf3e16129a,
+  labelPrefab: {fileID: 6833607763797754609, guid: 45908f9a961f0e744973a334f8400538,
     type: 3}
 --- !u!114 &6796884556013078917
 MonoBehaviour:
@@ -264,11 +264,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrapPool: {fileID: 0}
-  maxBound: 20
-  minBound: 10
-  seperateDistance: 5
-  seperateForceScale: 3
-  boundForceScale: 2
 --- !u!114 &5770002446140100168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +277,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrapSteer: {fileID: 6796884556013078917}
-  maxSpeed: 5
 --- !u!114 &5770002446140100165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa426a5fefb1e684ba3fcd1a5812660a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrapPool: {fileID: 0}
   spawnPos: {fileID: 0}
 --- !u!82 &5770002446140100166
 AudioSource:
