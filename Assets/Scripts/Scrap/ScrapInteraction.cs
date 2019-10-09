@@ -13,7 +13,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 {
 	[SerializeField] private ScrapConstants.State state;
 
-	public float defaultOffsetDistance = 2f;
+	public float defaultOffsetDistance = 0.5f;
     [SerializeField] private float offsetDistance;
 	public float smoothing = 0.001f;
     public bool shoot = false;
@@ -212,13 +212,13 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
             if (pointerIdToPointerMap.Count == 0 && rb != null)
             {
+                SetState(ScrapConstants.State.notPlaced);
 
                 if (shoot)
                     ShootScrap(eventData);
                 else
                     ReleaseScrap(eventData);
 
-                SetState(ScrapConstants.State.notPlaced);
             }
         }
 		eventData.Use();
@@ -268,26 +268,35 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         }
     }
 
-    public void OnScroll(Vector2 inputData)
+    public void HandleDualAxisInput(Vector2 inputData)
     {
-        float yThreshold = 0.5f;
-        float xThreshold = 0.5f;
+        float yUpper = 0.5f;
+        float yLower = -0.5f;
+        float xUpper = 0.5f;
+        float xLower = -0.5f;
+        float rotateAmount = 10;
+        float pullAmount = 1;
 
-        if(state == ScrapConstants.State.manipulating)
+        // Adjust translation with y-axis input
+        if (inputData.y > yUpper)
         {
-            if(Mathf.Abs(inputData.y) > yThreshold)
-            {
-                // Translate toward/away from source
-                offsetDistance += inputData.y * 0.1f;
-                Mathf.Clamp(offsetDistance, defaultOffsetDistance, 100);
-            }
-            else if(Mathf.Abs(inputData.x) > xThreshold)
-            {
-                // Rotate object
-                //transform.localEulerAngles = transform.localEulerAngles + new Vector3(0, 15, 0);
-            }
+            offsetDistance += (inputData.y * pullAmount);
+            Mathf.Clamp(offsetDistance, defaultOffsetDistance, 100);
+        }
+        else if(inputData.y < yLower)
+        {
+            offsetDistance -= (inputData.y * pullAmount);
+            Mathf.Clamp(offsetDistance, defaultOffsetDistance, 100);
+        }
 
-            
+        // Rotate with x-axis input
+        if(inputData.x > xUpper)
+        {
+            transform.localEulerAngles = transform.localEulerAngles + new Vector3(0, rotateAmount, 0);
+        }
+        else if (inputData.x < xLower)
+        {
+            transform.localEulerAngles = transform.localEulerAngles + new Vector3(0, -rotateAmount, 0);
         }
     }
 
@@ -351,8 +360,13 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             if (eventData.MixedRealityInputAction.Description == "Scroll")
             {
-                // Change offset distance with scrolling
                 //OnScroll(eventData.InputData);
+            }
+
+            if(eventData.MixedRealityInputAction.Description == "Teleport Direction")
+            {
+                // Change offset distance with scrolling
+                HandleDualAxisInput(eventData.InputData);
             }
         }
     }
