@@ -62,7 +62,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     Vector3 dragVelocity;
 
     Rigidbody rb;
-    Collider collider;
+    MeshRenderer meshRenderer;
     Color defaultColor;
 
     private int collideCount;
@@ -73,18 +73,14 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         rotateLogic = new TwoHandRotateLogic();
         scaleLogic = new TwoHandScaleLogic();
         scaleHandler = GetComponent<TransformScaleHandler>();
-        rb = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
-        defaultColor = GetComponent<Renderer>().material.color;
+        rb = GetComponentInChildren<Rigidbody>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        defaultColor = meshRenderer.material.color;
 
         offsetDistance = defaultOffsetDistance;
 	}
 
-    private void Update()
-    {
-        HandleKeyboardInput();
-    }
-
+    // Unused
     private void HandleKeyboardInput()
     {
         if (state == ScrapConstants.State.manipulating)
@@ -308,7 +304,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
             case ScrapConstants.State.manipulating:
                 if (rb != null)
                     rb.isKinematic = false;
-                GetComponent<Renderer>().material.color = defaultColor;
+                meshRenderer.material.color = defaultColor;
                 if (IsColliding())
                 {
                     state = ScrapConstants.State.beingPlaced;
@@ -385,7 +381,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
         if(state == ScrapConstants.State.manipulating)
         {
-            GetComponent<Renderer>().material.color = colorOnClip;
+            meshRenderer.material.color = colorOnClip;
         }
     }
 
@@ -399,7 +395,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
         if (state == ScrapConstants.State.manipulating)
         {
-            GetComponent<Renderer>().material.color = defaultColor;
+            meshRenderer.material.color = defaultColor;
         }
     }
 
