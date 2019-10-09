@@ -210,19 +210,18 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             pointerIdToPointerMap.Remove(id);
 
+            if (pointerIdToPointerMap.Count == 0 && rb != null)
+            {
+
+                if (shoot)
+                    ShootScrap(eventData);
+                else
+                    ReleaseScrap(eventData);
+
+                SetState(ScrapConstants.State.notPlaced);
+            }
         }
 		eventData.Use();
-
-        if (pointerIdToPointerMap.Count == 0 && rb != null)
-        {
-
-            if (shoot)
-                ShootScrap(eventData);
-            else
-                ReleaseScrap(eventData);
-
-            SetState(ScrapConstants.State.notPlaced);
-        }
 
         OnPointerUpEvent.Invoke(eventData);
     }
@@ -303,7 +302,9 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             case ScrapConstants.State.manipulating:
                 if (rb != null)
-                    rb.isKinematic = false;
+                {
+                    rb.constraints = RigidbodyConstraints.None;
+                }
                 meshRenderer.material.color = defaultColor;
                 if (IsColliding())
                 {
@@ -313,7 +314,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
                 break;
             case ScrapConstants.State.beingPlaced:
                 if (rb != null)
-                    rb.isKinematic = false;
+                    rb.constraints = RigidbodyConstraints.None;
                 break;
             default:
                 break;
@@ -324,12 +325,14 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             case ScrapConstants.State.manipulating:
                 if(rb != null)
-                    rb.isKinematic = true;
+                {
+                    rb.constraints = RigidbodyConstraints.FreezeAll;
+                }
                 break;
             case ScrapConstants.State.beingPlaced:
                 OnPlacement.Invoke();
                 if (rb != null)
-                    rb.isKinematic = true;
+                    rb.constraints = RigidbodyConstraints.FreezeAll;
                 break;
             default:
                 break;
