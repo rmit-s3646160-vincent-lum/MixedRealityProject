@@ -159,16 +159,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100161, guid: bd355419529034a499fee06ca481c77f,
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300012, guid: 1ff35347a2a136e4dbaa5b5dca7d35ee, type: 3}
-    - target: {fileID: 5770002446140100160, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d24a1d94e00925d4abde00ea4dde5dda, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: nameText
@@ -179,21 +174,26 @@ PrefabInstance:
       propertyPath: descriptionText
       value: Can also be used as a drying pan
       objectReference: {fileID: 0}
+    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770002446140100161, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300012, guid: 1ff35347a2a136e4dbaa5b5dca7d35ee, type: 3}
+    - target: {fileID: 5770002446140100160, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d24a1d94e00925d4abde00ea4dde5dda, type: 2}
     - target: {fileID: 6029982198303052589, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 4300012, guid: 1ff35347a2a136e4dbaa5b5dca7d35ee, type: 3}
-    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd355419529034a499fee06ca481c77f, type: 3}
 --- !u!4 &7483669347228167466 stripped

@@ -90,7 +90,7 @@ MonoBehaviour:
   offsetDistance: 0.3
   smoothing: 0.001
   shoot: 0
-  colorOnClip: {r: 1, g: 0.5214751, b: 0, a: 0.32156864}
+  colorOnClip: {r: 1, g: 0.5001359, b: 0, a: 1}
   OnPlacement:
     m_PersistentCalls:
       m_Calls:

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6531189846684746704
+--- !u!1 &5910438431343352566
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4284153429121807846}
-  - component: {fileID: 7208527048509371853}
-  - component: {fileID: 6472774467916642331}
-  - component: {fileID: 2253705994329574726}
+  - component: {fileID: 9072781802448314107}
+  - component: {fileID: 4543509089901700555}
+  - component: {fileID: 1172422386141266662}
+  - component: {fileID: 1049197814843577386}
   m_Layer: 0
-  m_Name: Gear
+  m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4284153429121807846
+--- !u!4 &9072781802448314107
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6531189846684746704}
-  m_LocalRotation: {x: -0.25026765, y: 0.18192056, z: -0.55875176, w: 0.76945925}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 36.110535, y: 7.8538585, z: 36.110535}
+  m_GameObject: {fileID: 5910438431343352566}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.465, z: -1.461}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6852193930863810441}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -10.477, y: 34.689003, z: -75.25201}
---- !u!33 &7208527048509371853
+  m_Father: {fileID: 7942198139329376691}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4543509089901700555
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6531189846684746704}
-  m_Mesh: {fileID: 4300000, guid: e319525c73e2a8345a65ef6cf3259012, type: 3}
---- !u!23 &6472774467916642331
+  m_GameObject: {fileID: 5910438431343352566}
+  m_Mesh: {fileID: 4300000, guid: b29d7c826e2e2ba47bb7036fd8d21dae, type: 3}
+--- !u!23 &1172422386141266662
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6531189846684746704}
+  m_GameObject: {fileID: 5910438431343352566}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4452aaf84cce771488fcd983722260e0, type: 2}
+  - {fileID: 2100000, guid: 3d572a2bcd740464ea51398debbf733b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,21 +78,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &2253705994329574726
+--- !u!64 &1049197814843577386
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6531189846684746704}
+  m_GameObject: {fileID: 5910438431343352566}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: e319525c73e2a8345a65ef6cf3259012, type: 3}
---- !u!1001 &1082210486808304075
+  m_Mesh: {fileID: 4300000, guid: b29d7c826e2e2ba47bb7036fd8d21dae, type: 3}
+--- !u!1001 &4479799081755885553
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -102,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 5770002446140100285, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Name
-      value: Scrap_Gear
+      value: Scrap_Wheel
       objectReference: {fileID: 0}
     - target: {fileID: 5770002446140100162, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
@@ -159,67 +159,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100162, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100162, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100162, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: text
-      value: GEAR
-      objectReference: {fileID: 0}
     - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: nameText
-      value: GEAR
+      value: Wheel
       objectReference: {fileID: 0}
     - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: descriptionText
-      value: Metal and solid
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Mass
-      value: 4
+      value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100161, guid: bd355419529034a499fee06ca481c77f,
+    - target: {fileID: 8019419836523336933, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: e319525c73e2a8345a65ef6cf3259012, type: 3}
-    - target: {fileID: 5770002446140100160, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4452aaf84cce771488fcd983722260e0, type: 2}
-    - target: {fileID: 6029982198303052589, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: e319525c73e2a8345a65ef6cf3259012, type: 3}
-    m_RemovedComponents:
-    - {fileID: 5770002446140100287, guid: bd355419529034a499fee06ca481c77f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd355419529034a499fee06ca481c77f, type: 3}
---- !u!4 &6852193930863810441 stripped
+--- !u!4 &7942198139329376691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5770002446140100162, guid: bd355419529034a499fee06ca481c77f,
     type: 3}
-  m_PrefabInstance: {fileID: 1082210486808304075}
+  m_PrefabInstance: {fileID: 4479799081755885553}
   m_PrefabAsset: {fileID: 0}

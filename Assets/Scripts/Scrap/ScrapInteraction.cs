@@ -62,8 +62,8 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     Vector3 dragVelocity;
 
     Rigidbody rb;
-    MeshRenderer meshRenderer;
-    Color defaultColor;
+    MeshRenderer[] meshRenderers;
+    Color[] defaultColors;
 
     private int collideCount;
 
@@ -74,8 +74,13 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         scaleLogic = new TwoHandScaleLogic();
         scaleHandler = GetComponent<TransformScaleHandler>();
         rb = GetComponentInChildren<Rigidbody>();
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
-        defaultColor = meshRenderer.material.color;
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+        defaultColors = new Color[meshRenderers.Length];
+        for(int i = 0; i < meshRenderers.Length; i++)
+        {
+            defaultColors[i] = meshRenderers[i].material.color;
+        }
 
         offsetDistance = defaultOffsetDistance;
 	}
@@ -310,11 +315,11 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         switch (oldState)
         {
             case ScrapConstants.State.manipulating:
+                ResetColor();
                 if (rb != null)
                 {
                     rb.constraints = RigidbodyConstraints.None;
                 }
-                meshRenderer.material.color = defaultColor;
                 if (IsColliding())
                 {
                     state = ScrapConstants.State.beingPlaced;
@@ -322,6 +327,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
                 }
                 break;
             case ScrapConstants.State.beingPlaced:
+                UpdateColor();
                 if (rb != null)
                     rb.constraints = RigidbodyConstraints.None;
                 break;
@@ -398,7 +404,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
         if(state == ScrapConstants.State.manipulating)
         {
-            meshRenderer.material.color = colorOnClip;
+            UpdateColor();
         }
     }
 
@@ -412,7 +418,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
         if (state == ScrapConstants.State.manipulating)
         {
-            meshRenderer.material.color = defaultColor;
+            UpdateColor();
         }
     }
 
@@ -425,6 +431,29 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     {
         shoot = !shoot;
         // Need to move this logic to the controller instead of scrap
+    }
+
+    private void UpdateColor()
+    {
+        if(collideCount == 0)
+        {
+            ResetColor();
+        }
+        else
+        {
+            for (int i = 0; i < meshRenderers.Length; i++)
+            {
+                meshRenderers[i].material.color = colorOnClip;
+            }
+        }
+    }
+
+    private void ResetColor()
+    {
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material.color = defaultColors[i];
+        }
     }
 
 }
