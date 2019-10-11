@@ -5,25 +5,43 @@ using UnityEngine;
 public class RespawnOnFall : MonoBehaviour
 {
 	public ScrapPool scrapPool;
-	public Transform spawnPos;
+	public Transform spawn;
 
-	// Update is called once per frame
-	void FixedUpdate()
+    private Vector3 spawnPos;
+
+    private void Start()
+    {
+        if (spawn == null)
+        {
+            spawnPos = transform.position;
+        }
+        else
+        {
+            spawnPos = spawn.position;
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
 	{
 		if (transform.position.y < -50)
 		{
 			if (spawnPos != null)
 			{
-				transform.position = spawnPos.position;
+				transform.position = spawnPos;
+
 				Rigidbody rb = GetComponent<Rigidbody>();
 				if (rb != null)
 				{
 					rb.velocity = Vector3.zero;
+                    rb.constraints = RigidbodyConstraints.FreezeAll;
 				}
 			}
 			else
 			{
-				scrapPool.scraps.Remove(gameObject);
+                if(scrapPool != null)
+				    scrapPool.scraps.Remove(gameObject);
+
 				Destroy(gameObject);
 			}
 		}

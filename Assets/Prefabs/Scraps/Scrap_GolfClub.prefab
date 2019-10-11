@@ -89,7 +89,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: b36188bdc138f8d4bb66a44750272f62, type: 3}
 --- !u!1001 &1966426431924401364
@@ -159,6 +159,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: nameText
+      value: GOLF CLUB
+      objectReference: {fileID: 0}
+    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: descriptionText
+      value: Fore!
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770002446140100167, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5770002446140100161, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Mesh
@@ -174,16 +199,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: nameText
-      value: GOLF CLUB
-      objectReference: {fileID: 0}
-    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: descriptionText
-      value: Fore!
-      objectReference: {fileID: 0}
     - target: {fileID: 6029982198303052589, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Enabled
@@ -194,21 +209,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 4300000, guid: b36188bdc138f8d4bb66a44750272f62, type: 3}
-    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.33
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100167, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd355419529034a499fee06ca481c77f, type: 3}
 --- !u!4 &5429384899248929430 stripped

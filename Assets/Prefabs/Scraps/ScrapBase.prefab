@@ -91,22 +91,6 @@ MonoBehaviour:
   smoothing: 0.001
   shoot: 0
   colorOnClip: {r: 1, g: 0.5001359, b: 0, a: 1}
-  OnPlacement:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5770002446140100166}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   OnHoverEnter:
     m_PersistentCalls:
       m_Calls:
@@ -137,23 +121,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: FocusEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnPointerUpEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 782772389125746701}
-        m_MethodName: OnPointerUp
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Microsoft.MixedReality.Toolkit.Input.PointerUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnPointerDownEvent:
+  OnGrab:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 782772389125746701}
@@ -169,11 +137,43 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Microsoft.MixedReality.Toolkit.Input.PointerUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnPointerClickEvent:
+  OnRelease:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 782772389125746701}
+        m_MethodName: OnPointerUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Microsoft.MixedReality.Toolkit.Input.PointerUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  OnClick:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Microsoft.MixedReality.Toolkit.Input.PointerUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  OnPlacement:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5770002446140100166}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &782772389125746701
 MonoBehaviour:
   m_ObjectHideFlags: 0

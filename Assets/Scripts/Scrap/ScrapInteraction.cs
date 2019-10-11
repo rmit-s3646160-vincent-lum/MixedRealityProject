@@ -18,12 +18,13 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 	public float smoothing = 0.001f;
     public bool shoot = false;
     public Color colorOnClip = Color.blue;
-    public UnityEvent OnPlacement = new UnityEvent();
     public FocusEvent OnHoverEnter = new FocusEvent();
     public FocusEvent OnHoverExit = new FocusEvent();
-    public PointerUnityEvent OnPointerUpEvent = new PointerUnityEvent();
-    public PointerUnityEvent OnPointerDownEvent = new PointerUnityEvent();
-    public PointerUnityEvent OnPointerClickEvent = new PointerUnityEvent();
+    public PointerUnityEvent OnGrab = new PointerUnityEvent();
+    public PointerUnityEvent OnRelease = new PointerUnityEvent();
+    public PointerUnityEvent OnClick = new PointerUnityEvent();
+    public UnityEvent OnPlacement = new UnityEvent();
+
 
     private struct PointerData
     {
@@ -103,7 +104,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
     public void OnPointerDown(MixedRealityPointerEventData eventData)
 	{
-		SetState(ScrapConstants.State.manipulating);
+        SetState(ScrapConstants.State.manipulating);
 
         uint id = eventData.Pointer.PointerId;
 
@@ -116,6 +117,9 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
             // If this is the first pointer...
             if (pointerIdToPointerMap.Count == 1)
             {
+                // Call grab event
+                OnGrab.Invoke(eventData);
+
                 // Set up move logic using first pointer data
                 PointerData pointerData = pointerIdToPointerMap.Values.First();
                 IMixedRealityPointer pointer = pointerData.pointer;
@@ -142,8 +146,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             eventData.Use();
         }
-
-        OnPointerDownEvent.Invoke(eventData);
+            
     }
 
 	public void OnPointerDragged(MixedRealityPointerEventData eventData)
@@ -214,26 +217,26 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         if (pointerIdToPointerMap.ContainsKey(id))
         {
             pointerIdToPointerMap.Remove(id);
-
-            if (pointerIdToPointerMap.Count == 0 && rb != null)
-            {
-                SetState(ScrapConstants.State.notPlaced);
-
-                if (shoot)
-                    ShootScrap(eventData);
-                else
-                    ReleaseScrap(eventData);
-
-            }
         }
 		eventData.Use();
 
-        OnPointerUpEvent.Invoke(eventData);
+        // Call release event if scrap has no pointers
+        if(pointerIdToPointerMap.Count == 0)
+        {
+            SetState(ScrapConstants.State.notPlaced);
+
+            if (shoot)
+                ShootScrap(eventData);
+            else
+                ReleaseScrap(eventData);
+
+            OnRelease.Invoke(eventData);
+        }
     }
 
 	public void OnPointerClicked(MixedRealityPointerEventData eventData)
 	{
-        OnPointerClickEvent.Invoke(eventData);
+        OnClick.Invoke(eventData);
     }
 
     public void OnFocusEnter(FocusEventData eventData)
@@ -308,6 +311,10 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 	public void SetState(ScrapConstants.State newState)
 	{
         ScrapConstants.State oldState = state;
+
+        // Return if no state change
+        if (newState == oldState)
+            return;
 
         state = newState;
 

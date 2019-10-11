@@ -24,22 +24,28 @@ public class ScrapSteer : MonoBehaviour
 	private Vector3 Seperate()
 	{
 		Vector3 force = Vector3.zero;
-		foreach (GameObject scrap in scrapPool.scraps)
-		{
-			if (scrap == gameObject)
-			{
-				continue;
-			}
-			if (scrap == null)
-			{
-				continue;
-			}
-			Vector3 difference = transform.position - scrap.transform.position;
-			if (difference.magnitude <= seperateDistance)
-			{
-				force += difference.normalized / (1 / difference.magnitude);
-			}
+
+        if(scrapPool != null)
+        {
+            foreach (GameObject scrap in scrapPool.scraps)
+            {
+                if (scrap == gameObject)
+                {
+                    continue;
+                }
+                if (scrap == null)
+                {
+                    continue;
+                }
+                Vector3 difference = transform.position - scrap.transform.position;
+                if (difference.magnitude <= seperateDistance)
+                {
+                    force += difference.normalized / (1 / difference.magnitude);
+
+                }
+            }
 		}
+
 		return force * seperateForceScale;
 	}
 
