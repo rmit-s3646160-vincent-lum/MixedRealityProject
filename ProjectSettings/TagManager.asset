@@ -39,6 +39,9 @@ TagManager:
   - 
   - Spatial Awareness
   m_SortingLayers:
+  - name: UI
+    uniqueID: 3482853865
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -13,17 +13,18 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 {
 	[SerializeField] private ScrapConstants.State state;
 
-	public float defaultOffsetDistance = 2f;
+	public float defaultOffsetDistance = 0.5f;
     [SerializeField] private float offsetDistance;
 	public float smoothing = 0.001f;
     public bool shoot = false;
     public Color colorOnClip = Color.blue;
-    public UnityEvent OnPlacement = new UnityEvent();
     public FocusEvent OnHoverEnter = new FocusEvent();
     public FocusEvent OnHoverExit = new FocusEvent();
-    public PointerUnityEvent OnPointerUpEvent = new PointerUnityEvent();
-    public PointerUnityEvent OnPointerDownEvent = new PointerUnityEvent();
-    public PointerUnityEvent OnPointerClickEvent = new PointerUnityEvent();
+    public PointerUnityEvent OnGrab = new PointerUnityEvent();
+    public PointerUnityEvent OnRelease = new PointerUnityEvent();
+    public PointerUnityEvent OnClick = new PointerUnityEvent();
+    public UnityEvent OnPlacement = new UnityEvent();
+
 
     private struct PointerData
     {
@@ -62,8 +63,8 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     Vector3 dragVelocity;
 
     Rigidbody rb;
-    Collider collider;
-    Color defaultColor;
+    MeshRenderer[] meshRenderers;
+    Color[] defaultColors;
 
     private int collideCount;
 
@@ -73,18 +74,19 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         rotateLogic = new TwoHandRotateLogic();
         scaleLogic = new TwoHandScaleLogic();
         scaleHandler = GetComponent<TransformScaleHandler>();
-        rb = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
-        defaultColor = GetComponent<Renderer>().material.color;
+        rb = GetComponentInChildren<Rigidbody>();
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+        defaultColors = new Color[meshRenderers.Length];
+        for(int i = 0; i < meshRenderers.Length; i++)
+        {
+            defaultColors[i] = meshRenderers[i].material.color;
+        }
 
         offsetDistance = defaultOffsetDistance;
 	}
 
-    private void Update()
-    {
-        HandleKeyboardInput();
-    }
-
+    // Unused
     private void HandleKeyboardInput()
     {
         if (state == ScrapConstants.State.manipulating)
@@ -102,7 +104,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
     public void OnPointerDown(MixedRealityPointerEventData eventData)
 	{
-		SetState(ScrapConstants.State.manipulating);
+        SetState(ScrapConstants.State.manipulating);
 
         uint id = eventData.Pointer.PointerId;
 
@@ -115,6 +117,9 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
             // If this is the first pointer...
             if (pointerIdToPointerMap.Count == 1)
             {
+                // Call grab event
+                OnGrab.Invoke(eventData);
+
                 // Set up move logic using first pointer data
                 PointerData pointerData = pointerIdToPointerMap.Values.First();
                 IMixedRealityPointer pointer = pointerData.pointer;
@@ -141,8 +146,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             eventData.Use();
         }
-
-        OnPointerDownEvent.Invoke(eventData);
+            
     }
 
 	public void OnPointerDragged(MixedRealityPointerEventData eventData)
@@ -213,27 +217,26 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         if (pointerIdToPointerMap.ContainsKey(id))
         {
             pointerIdToPointerMap.Remove(id);
-
         }
 		eventData.Use();
 
-        if (pointerIdToPointerMap.Count == 0 && rb != null)
+        // Call release event if scrap has no pointers
+        if(pointerIdToPointerMap.Count == 0)
         {
+            SetState(ScrapConstants.State.notPlaced);
 
             if (shoot)
                 ShootScrap(eventData);
             else
                 ReleaseScrap(eventData);
 
-            SetState(ScrapConstants.State.notPlaced);
+            OnRelease.Invoke(eventData);
         }
-
-        OnPointerUpEvent.Invoke(eventData);
     }
 
 	public void OnPointerClicked(MixedRealityPointerEventData eventData)
 	{
-        OnPointerClickEvent.Invoke(eventData);
+        OnClick.Invoke(eventData);
     }
 
     public void OnFocusEnter(FocusEventData eventData)
@@ -273,26 +276,35 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         }
     }
 
-    public void OnScroll(Vector2 inputData)
+    public void HandleDualAxisInput(Vector2 inputData)
     {
-        float yThreshold = 0.5f;
-        float xThreshold = 0.5f;
+        float yUpper = 0.5f;
+        float yLower = -0.5f;
+        float xUpper = 0.5f;
+        float xLower = -0.5f;
+        float rotateAmount = 10;
+        float pullAmount = 1;
 
-        if(state == ScrapConstants.State.manipulating)
+        // Adjust translation with y-axis input
+        if (inputData.y > yUpper)
         {
-            if(Mathf.Abs(inputData.y) > yThreshold)
-            {
-                // Translate toward/away from source
-                offsetDistance += inputData.y * 0.1f;
-                Mathf.Clamp(offsetDistance, defaultOffsetDistance, 100);
-            }
-            else if(Mathf.Abs(inputData.x) > xThreshold)
-            {
-                // Rotate object
-                //transform.localEulerAngles = transform.localEulerAngles + new Vector3(0, 15, 0);
-            }
+            offsetDistance += (inputData.y * pullAmount);
+            Mathf.Clamp(offsetDistance, defaultOffsetDistance, 100);
+        }
+        else if(inputData.y < yLower)
+        {
+            offsetDistance -= (inputData.y * pullAmount);
+            Mathf.Clamp(offsetDistance, defaultOffsetDistance, 100);
+        }
 
-            
+        // Rotate with x-axis input
+        if(inputData.x > xUpper)
+        {
+            transform.localEulerAngles = transform.localEulerAngles + new Vector3(0, rotateAmount, 0);
+        }
+        else if (inputData.x < xLower)
+        {
+            transform.localEulerAngles = transform.localEulerAngles + new Vector3(0, -rotateAmount, 0);
         }
     }
 
@@ -300,15 +312,21 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 	{
         ScrapConstants.State oldState = state;
 
+        // Return if no state change
+        if (newState == oldState)
+            return;
+
         state = newState;
 
         // Call state transition exit function
         switch (oldState)
         {
             case ScrapConstants.State.manipulating:
+                ResetColor();
                 if (rb != null)
-                    rb.isKinematic = false;
-                GetComponent<Renderer>().material.color = defaultColor;
+                {
+                    rb.constraints = RigidbodyConstraints.None;
+                }
                 if (IsColliding())
                 {
                     state = ScrapConstants.State.beingPlaced;
@@ -316,8 +334,9 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
                 }
                 break;
             case ScrapConstants.State.beingPlaced:
+                UpdateColor();
                 if (rb != null)
-                    rb.isKinematic = false;
+                    rb.constraints = RigidbodyConstraints.None;
                 break;
             default:
                 break;
@@ -328,12 +347,14 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             case ScrapConstants.State.manipulating:
                 if(rb != null)
-                    rb.isKinematic = true;
+                {
+                    rb.constraints = RigidbodyConstraints.FreezeAll;
+                }
                 break;
             case ScrapConstants.State.beingPlaced:
                 OnPlacement.Invoke();
                 if (rb != null)
-                    rb.isKinematic = true;
+                    rb.constraints = RigidbodyConstraints.FreezeAll;
                 break;
             default:
                 break;
@@ -352,8 +373,13 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             if (eventData.MixedRealityInputAction.Description == "Scroll")
             {
-                // Change offset distance with scrolling
                 //OnScroll(eventData.InputData);
+            }
+
+            if(eventData.MixedRealityInputAction.Description == "Teleport Direction")
+            {
+                // Change offset distance with scrolling
+                HandleDualAxisInput(eventData.InputData);
             }
         }
     }
@@ -385,7 +411,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
         if(state == ScrapConstants.State.manipulating)
         {
-            GetComponent<Renderer>().material.color = colorOnClip;
+            UpdateColor();
         }
     }
 
@@ -399,7 +425,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
         if (state == ScrapConstants.State.manipulating)
         {
-            GetComponent<Renderer>().material.color = defaultColor;
+            UpdateColor();
         }
     }
 
@@ -412,6 +438,29 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     {
         shoot = !shoot;
         // Need to move this logic to the controller instead of scrap
+    }
+
+    private void UpdateColor()
+    {
+        if(collideCount == 0)
+        {
+            ResetColor();
+        }
+        else
+        {
+            for (int i = 0; i < meshRenderers.Length; i++)
+            {
+                meshRenderers[i].material.color = colorOnClip;
+            }
+        }
+    }
+
+    private void ResetColor()
+    {
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material.color = defaultColors[i];
+        }
     }
 
 }
