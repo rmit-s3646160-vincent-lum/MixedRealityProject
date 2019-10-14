@@ -1688,6 +1688,9 @@ GameObject:
   - component: {fileID: 2796597661909757644}
   - component: {fileID: 7042265367173590627}
   - component: {fileID: 8817764177386961418}
+  - component: {fileID: 5746221955174244824}
+  - component: {fileID: 1787686004501189773}
+  - component: {fileID: 3336065237305743704}
   m_Layer: 0
   m_Name: InventoryBanner
   m_TagString: Untagged
@@ -1811,10 +1814,72 @@ MonoBehaviour:
   - {fileID: 414675274327067333, guid: 21dcf3a08d6388a4ca0e931539eca7e8, type: 3}
   - {fileID: 7942198139329376588, guid: 042bf80ee68f171409b0c26771194cdb, type: 3}
   - {fileID: 5830382638442994097, guid: 707b7eedb6cc54544ab23fa45dedc36d, type: 3}
-  spawnPos: {fileID: 0}
   items:
   - {fileID: 7370049103300050973}
   - {fileID: 1204543776307586758}
   - {fileID: 692978048946788906}
   - {fileID: 1565084186932243141}
+  spawnPos: {fileID: 0}
   scroller: {fileID: 8718160861743137251}
+--- !u!114 &5746221955174244824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625771481399612691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55691ad5b034fe6966763a6e23818d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackedTargetType: 0
+  trackedHandness: 3
+  trackedHandJoint: 2
+  transformOverride: {fileID: 0}
+  additionalOffset: {x: 0, y: 0, z: 0}
+  additionalRotation: {x: 0, y: 0, z: 0}
+  updateSolvers: 1
+--- !u!114 &1787686004501189773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625771481399612691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4684083f6dff4a1d8a790bccc354fcf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateLinkedTransform: 0
+  moveLerpTime: 0.1
+  rotateLerpTime: 0.1
+  scaleLerpTime: 0
+  maintainScale: 1
+  smoothing: 1
+  lifetime: 0
+  referenceDirection: 1
+  minDistance: 2
+  maxDistance: 3
+  minViewDegrees: 0
+  maxViewDegrees: 30
+  aspectV: 1
+  ignoreAngleClamp: 0
+  ignoreDistanceClamp: 0
+  useFixedVerticalPosition: 0
+  fixedVerticalPosition: -0.4
+  orientToReferenceDirection: 0
+--- !u!114 &3336065237305743704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625771481399612691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d1fea68463e4e84b86c395b654f950d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizationObject: {fileID: 0}
