@@ -21,7 +21,12 @@ ModelImporter:
     4300000: LADDER_2
     4300002: LADDER_1
     4300004: RUNG
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LADDER1
+    second: {fileID: 2100000, guid: 23c35aee0671e364ab1fbf1291abd77c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
