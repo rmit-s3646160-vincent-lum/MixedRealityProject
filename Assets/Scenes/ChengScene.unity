@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1086,7 +1086,7 @@ PrefabInstance:
     - target: {fileID: 1321006880865351670, guid: cd8e33c1ee399fe49aa21a982271759d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1321006880865446870, guid: cd8e33c1ee399fe49aa21a982271759d,
         type: 3}
@@ -1443,7 +1443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1380926025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,6 +2407,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventoryBanner
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625771481399612691, guid: 1ab969355d5114282981d40043ae674b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2796597661909757644, guid: 1ab969355d5114282981d40043ae674b,
         type: 3}
