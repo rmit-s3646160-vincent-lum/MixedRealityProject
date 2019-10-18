@@ -159,6 +159,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: nameText
+      value: WRENCH
+      objectReference: {fileID: 0}
+    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: descriptionText
+      value: Don't throw it in the works.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5770002446140100161, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Mesh
@@ -169,31 +189,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 087f357702cb5a540ab8947ce638e973, type: 2}
-    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: nameText
-      value: WRENCH
-      objectReference: {fileID: 0}
-    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: descriptionText
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6029982198303052589, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 4300022, guid: 1ff35347a2a136e4dbaa5b5dca7d35ee, type: 3}
-    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd355419529034a499fee06ca481c77f, type: 3}
 --- !u!4 &5830382638442993998 stripped

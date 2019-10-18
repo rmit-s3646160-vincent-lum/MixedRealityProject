@@ -35,7 +35,7 @@ public class InventoryManager : MonoBehaviour
 		}
 		index += curPage * 4;
 		var newScrap = Instantiate(itemPrefabs[index], spawnPos.position, spawnPos.rotation, spawnPos);
-        newScrap.GetComponent<ScrapInteraction>().SetState(ScrapConstants.State.notPlaced);
+        newScrap.GetComponent<ScrapInteraction>().SetState(ScrapConstants.ScrapState.notPlaced);
 	}
 
 	public void PageUp()

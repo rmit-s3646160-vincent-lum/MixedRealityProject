@@ -37,15 +37,15 @@ public class ScrapMovement : MonoBehaviour
 	{
 		switch (scrapInteraction.GetState())
 		{
-			case State.initial:
-				ApplyForce(scrapSteer.GetForce());
-				UpdatePosition();
+			case ScrapState.initial:
+				//ApplyForce(scrapSteer.GetForce());
+				//UpdatePosition();
 				break;
-			case State.manipulating:
+			case ScrapState.manipulating:
 				break;
-			case State.notPlaced:
+			case ScrapState.notPlaced:
 				break;
-			case State.beingPlaced:
+			case ScrapState.beingPlaced:
 				break;
 
 		}
@@ -78,23 +78,23 @@ public class ScrapMovement : MonoBehaviour
 		}
 	}
 
-	public void ChangeState(State state)
+	public void ChangeState(ScrapState state)
 	{
 		switch (state)
 		{
-			case State.initial:
-				scrapInteraction.SetState(State.initial);
+			case ScrapState.initial:
+				scrapInteraction.SetState(ScrapState.initial);
 				break;
-			case State.manipulating:
-				scrapInteraction.SetState(State.manipulating);
+			case ScrapState.manipulating:
+				scrapInteraction.SetState(ScrapState.manipulating);
 				rigidbody.constraints = RigidbodyConstraints.None;
 				break;
-			case State.notPlaced:
-				scrapInteraction.SetState(State.notPlaced);
+			case ScrapState.notPlaced:
+				scrapInteraction.SetState(ScrapState.notPlaced);
 				break;
-			case State.beingPlaced:
+			case ScrapState.beingPlaced:
 				rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-				scrapInteraction.SetState(State.beingPlaced);
+				scrapInteraction.SetState(ScrapState.beingPlaced);
 				break;
 
 		}
@@ -102,12 +102,12 @@ public class ScrapMovement : MonoBehaviour
 
 	public void StartManipulating()
 	{
-		ChangeState(State.manipulating);
+		ChangeState(ScrapState.manipulating);
 	}
 
 	public void StopManipulating()
 	{
-		ChangeState(State.notPlaced);
+		ChangeState(ScrapState.notPlaced);
 	}
 
 	/*

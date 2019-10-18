@@ -26,24 +26,25 @@ public class RespawnOnFall : MonoBehaviour
 	{
 		if (transform.position.y < -50)
 		{
-			if (spawnPos != null)
-			{
-				transform.position = spawnPos;
-
-				Rigidbody rb = GetComponent<Rigidbody>();
-				if (rb != null)
-				{
-					rb.velocity = Vector3.zero;
-                    rb.constraints = RigidbodyConstraints.FreezeAll;
-				}
-			}
-			else
-			{
-                if(scrapPool != null)
-				    scrapPool.scraps.Remove(gameObject);
-
-				Destroy(gameObject);
-			}
+            Respawn();
 		}
 	}
+
+    private void Respawn()
+    {
+        if(scrapPool != null)
+        {
+            transform.SetParent(scrapPool.transform);
+            GetComponent<ScrapInteraction>().SetState(ScrapConstants.ScrapState.initial);
+        }
+        else if (spawnPos != null)
+        {
+            transform.position = spawnPos;
+            GetComponent<ScrapInteraction>().SetState(ScrapConstants.ScrapState.initial);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 }

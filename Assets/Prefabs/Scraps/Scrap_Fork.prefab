@@ -159,10 +159,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
-      propertyPath: m_Mass
-      value: 0.1
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
@@ -172,12 +172,12 @@ PrefabInstance:
     - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: descriptionText
-      value: 
+      value: What do you call a fork with three prongs? A threek!
       objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
+    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 1
+      propertyPath: m_Mass
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5770002446140100161, guid: bd355419529034a499fee06ca481c77f,
         type: 3}

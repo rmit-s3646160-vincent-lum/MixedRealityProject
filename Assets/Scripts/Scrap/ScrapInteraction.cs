@@ -11,7 +11,7 @@ using static ScrapConstants;
 
 public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vector2>, IMixedRealityPointerHandler, IMixedRealityFocusHandler
 {
-	[SerializeField] private ScrapConstants.State state;
+	[SerializeField] private ScrapState state;
 
 	public float defaultOffsetDistance = 0.5f;
     [SerializeField] private float offsetDistance;
@@ -89,7 +89,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     // Unused
     private void HandleKeyboardInput()
     {
-        if (state == ScrapConstants.State.manipulating)
+        if (state == ScrapState.manipulating)
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
@@ -104,7 +104,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 
     public void OnPointerDown(MixedRealityPointerEventData eventData)
 	{
-        SetState(ScrapConstants.State.manipulating);
+        SetState(ScrapState.manipulating);
 
         uint id = eventData.Pointer.PointerId;
 
@@ -223,7 +223,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         // Call release event if scrap has no pointers
         if(pointerIdToPointerMap.Count == 0)
         {
-            SetState(ScrapConstants.State.notPlaced);
+            SetState(ScrapState.notPlaced);
 
             if (shoot)
                 ShootScrap(eventData);
@@ -308,9 +308,9 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         }
     }
 
-	public void SetState(ScrapConstants.State newState)
+	public void SetState(ScrapState newState)
 	{
-        ScrapConstants.State oldState = state;
+        ScrapState oldState = state;
 
         // Return if no state change
         if (newState == oldState)
@@ -321,7 +321,12 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         // Call state transition exit function
         switch (oldState)
         {
-            case ScrapConstants.State.manipulating:
+            case ScrapState.initial:
+                // Unparent from scrappool
+                transform.SetParent(null);
+                GetComponent<Rotator>().enabled = false;
+                break;
+            case ScrapState.manipulating:
                 ResetColor();
                 if (rb != null)
                 {
@@ -329,11 +334,11 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
                 }
                 if (IsColliding())
                 {
-                    state = ScrapConstants.State.beingPlaced;
+                    state = ScrapState.beingPlaced;
                     OnPlacement.Invoke();
                 }
                 break;
-            case ScrapConstants.State.beingPlaced:
+            case ScrapState.beingPlaced:
                 UpdateColor();
                 if (rb != null)
                     rb.constraints = RigidbodyConstraints.None;
@@ -345,13 +350,17 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         // Call state transition enter function
         switch (state)
         {
-            case ScrapConstants.State.manipulating:
+            case ScrapState.initial:
+                rb.constraints = RigidbodyConstraints.FreezePosition;
+                GetComponent<Rotator>().enabled = true;
+                break;
+            case ScrapState.manipulating:
                 if(rb != null)
                 {
                     rb.constraints = RigidbodyConstraints.FreezeAll;
                 }
                 break;
-            case ScrapConstants.State.beingPlaced:
+            case ScrapState.beingPlaced:
                 OnPlacement.Invoke();
                 if (rb != null)
                     rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -361,7 +370,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         }
     }
 
-	public ScrapConstants.State GetState()
+	public ScrapState GetState()
 	{
 		return state;
 	}
@@ -369,7 +378,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     public void OnInputChanged(InputEventData<Vector2> eventData)
     {
         // Check if input was from first focus controller
-        if(state == ScrapConstants.State.manipulating)
+        if(state == ScrapState.manipulating)
         {
             if (eventData.MixedRealityInputAction.Description == "Scroll")
             {
@@ -409,7 +418,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     {
         collideCount++;
 
-        if(state == ScrapConstants.State.manipulating)
+        if(state == ScrapState.manipulating)
         {
             UpdateColor();
         }
@@ -418,12 +427,12 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     private void OnCollisionExit(Collision collision)
     {
         collideCount--;
-        if(!IsColliding() && state == ScrapConstants.State.beingPlaced)
+        if(!IsColliding() && state == ScrapState.beingPlaced)
         {
-            SetState(ScrapConstants.State.notPlaced);
+            SetState(ScrapState.notPlaced);
         }
 
-        if (state == ScrapConstants.State.manipulating)
+        if (state == ScrapState.manipulating)
         {
             UpdateColor();
         }

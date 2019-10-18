@@ -5,7 +5,7 @@ using static ScrapConstants;
 
 public class ScrapSpawner : MonoBehaviour
 {
-	public ScrapPool survivorPool;
+	public ScrapPool scrapPool;
 	private float timeElapsed;
 	// Start is called before the first frame update
 	void Start()
@@ -18,7 +18,7 @@ public class ScrapSpawner : MonoBehaviour
 		timeElapsed += Time.deltaTime;
 		if (timeElapsed >= SPAWNING_COOL_DOWN)
 		{
-			survivorPool.PullOneEnemy();
+			scrapPool.SpawnScrap();
 			timeElapsed = 0;
 		}
 	}

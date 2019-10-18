@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 5770002446140100167}
   - component: {fileID: 5770002446140100164}
   - component: {fileID: 782772389125746701}
-  - component: {fileID: 6796884556013078917}
-  - component: {fileID: 5770002446140100168}
   - component: {fileID: 5770002446140100165}
   - component: {fileID: 5770002446140100166}
   - component: {fileID: 1488696261219465995}
+  - component: {fileID: 3620130229876056257}
   m_Layer: 0
   m_Name: ScrapBase
   m_TagString: Untagged
@@ -50,11 +49,11 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!114 &5770002446140100167
 MonoBehaviour:
@@ -191,32 +190,6 @@ MonoBehaviour:
   alwaysShow: 0
   labelPrefab: {fileID: 6833607763797754609, guid: 45908f9a961f0e744973a334f8400538,
     type: 3}
---- !u!114 &6796884556013078917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5770002446140100285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92738048557117d429871bc3aeb143c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrapPool: {fileID: 0}
---- !u!114 &5770002446140100168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5770002446140100285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5264c89a65d64e44abcb5ea80baa51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrapSteer: {fileID: 6796884556013078917}
 --- !u!114 &5770002446140100165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrapPool: {fileID: 0}
-  spawnPos: {fileID: 0}
+  spawn: {fileID: 0}
 --- !u!82 &5770002446140100166
 AudioSource:
   m_ObjectHideFlags: 0
@@ -366,6 +339,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Microsoft.MixedReality.Toolkit.Input.InputActionUnityEvent, Microsoft.MixedReality.Toolkit.SDK,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &3620130229876056257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5770002446140100285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bdc64be0c151df4789c4fdb92f690f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eulerAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &8019419836523336933
 GameObject:
   m_ObjectHideFlags: 0

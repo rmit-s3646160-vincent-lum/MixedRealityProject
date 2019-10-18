@@ -159,6 +159,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: nameText
+      value: BELL
+      objectReference: {fileID: 0}
+    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: descriptionText
+      value: It jingles all the way.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5770002446140100161, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Mesh
@@ -169,16 +189,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d24a1d94e00925d4abde00ea4dde5dda, type: 2}
-    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: nameText
-      value: BELL
-      objectReference: {fileID: 0}
-    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: descriptionText
-      value: It jingles
-      objectReference: {fileID: 0}
     - target: {fileID: 6029982198303052589, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Mesh
@@ -187,16 +197,6 @@ PrefabInstance:
     - target: {fileID: 5770002446140100287, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:

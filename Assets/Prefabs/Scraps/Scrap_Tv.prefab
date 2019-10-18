@@ -162,12 +162,12 @@ PrefabInstance:
     - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: nameText
-      value: Television
+      value: CRT TV
       objectReference: {fileID: 0}
     - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: descriptionText
-      value: An old CRT TV
+      value: You might have to hit it a few times.
       objectReference: {fileID: 0}
     - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
         type: 3}

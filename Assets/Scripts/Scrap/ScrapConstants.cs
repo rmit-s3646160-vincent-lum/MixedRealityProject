@@ -11,7 +11,7 @@ public static class ScrapConstants
 	public const float SPAWNING_COOL_DOWN = 2f;
 
 
-	public enum State
+	public enum ScrapState
 	{
 		initial,
 		manipulating,

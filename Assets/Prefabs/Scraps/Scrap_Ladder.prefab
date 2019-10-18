@@ -109,6 +109,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: nameText
+      value: LADDER
+      objectReference: {fileID: 0}
+    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: descriptionText
+      value: Remember to always operate a ladder on steady ground.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5770002446140100164, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: OnPointerDownEvent.m_PersistentCalls.m_Calls.Array.size
@@ -239,41 +274,6 @@ PrefabInstance:
       propertyPath: OnGrab.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: nameText
-      value: LADDER
-      objectReference: {fileID: 0}
-    - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: descriptionText
-      value: Remember to always operate a ladder on steady ground.
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 8019419836523336933, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
       propertyPath: m_IsActive
@@ -315,15 +315,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a39bc7dc4fb628e4bb556de491993dcf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.054066736
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a39bc7dc4fb628e4bb556de491993dcf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.31
+      value: -1.3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a39bc7dc4fb628e4bb556de491993dcf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.042006467
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a39bc7dc4fb628e4bb556de491993dcf, type: 3}
       propertyPath: m_LocalRotation.x
@@ -359,15 +359,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a39bc7dc4fb628e4bb556de491993dcf, type: 3}
       propertyPath: m_LocalScale.x
-      value: 80.90706
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a39bc7dc4fb628e4bb556de491993dcf, type: 3}
       propertyPath: m_LocalScale.y
-      value: 80.90706
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a39bc7dc4fb628e4bb556de491993dcf, type: 3}
       propertyPath: m_LocalScale.z
-      value: 80.90706
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a39bc7dc4fb628e4bb556de491993dcf, type: 3}
