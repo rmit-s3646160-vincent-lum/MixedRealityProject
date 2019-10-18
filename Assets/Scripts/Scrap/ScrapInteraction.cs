@@ -288,12 +288,12 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         // Adjust translation with y-axis input
         if (inputData.y > yUpper)
         {
-            offsetDistance += (inputData.y * pullAmount);
+            offsetDistance += (pullAmount);
             Mathf.Clamp(offsetDistance, defaultOffsetDistance, 100);
         }
         else if(inputData.y < yLower)
         {
-            offsetDistance -= (inputData.y * pullAmount);
+            offsetDistance -= (pullAmount);
             Mathf.Clamp(offsetDistance, defaultOffsetDistance, 100);
         }
 
