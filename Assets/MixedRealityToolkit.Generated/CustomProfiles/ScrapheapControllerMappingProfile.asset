@@ -133,8 +133,8 @@ MonoBehaviour:
       axisType: 3
       inputType: 13
       inputAction:
-        id: 7
-        description: Grip Press
+        id: 6
+        description: Trigger
         axisConstraint: 3
       keyCode: 0
       axisCodeX: 
@@ -2498,8 +2498,8 @@ MonoBehaviour:
       axisType: 3
       inputType: 13
       inputAction:
-        id: 7
-        description: Grip Press
+        id: 6
+        description: Trigger
         axisConstraint: 3
       keyCode: 0
       axisCodeX: 

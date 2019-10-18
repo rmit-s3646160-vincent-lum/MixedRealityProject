@@ -34,9 +34,9 @@ public class ScrapLabelSpawner : MonoBehaviour
 			label.gameObject.SetActive(false);
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
-		if (pointer != null)
+		if (pointer != null && label != null)
 		{
 			label.position = pointer.Result.Details.Point;
 		}

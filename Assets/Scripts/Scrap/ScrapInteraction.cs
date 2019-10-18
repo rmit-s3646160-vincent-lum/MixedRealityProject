@@ -16,7 +16,6 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
 	public float defaultOffsetDistance = 0.5f;
     [SerializeField] private float offsetDistance;
 	public float smoothing = 0.001f;
-    public bool shoot = false;
     public Color colorOnClip = Color.blue;
     public FocusEvent OnHoverEnter = new FocusEvent();
     public FocusEvent OnHoverExit = new FocusEvent();
@@ -225,7 +224,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             SetState(ScrapState.notPlaced);
 
-            if (shoot)
+            if (ControllerInputHandler.instance.shoot)
                 ShootScrap(eventData);
             else
                 ReleaseScrap(eventData);
@@ -441,12 +440,6 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     public bool IsColliding()
     {
         return collideCount != 0;
-    }
-
-    public void ToggleShoot()
-    {
-        shoot = !shoot;
-        // Need to move this logic to the controller instead of scrap
     }
 
     private void UpdateColor()
