@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5770002446140100166}
   - component: {fileID: 1488696261219465995}
   - component: {fileID: 3620130229876056257}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ScrapBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 2327610034821400719}
   - component: {fileID: 3442066863785792114}
   - component: {fileID: 3438516508610988931}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

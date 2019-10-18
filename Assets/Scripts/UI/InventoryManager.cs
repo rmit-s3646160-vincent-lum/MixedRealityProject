@@ -7,7 +7,7 @@ public class InventoryManager : MonoBehaviour
 	public List<Sprite> itemSprites;
 	public List<GameObject> itemPrefabs;
 	public SpriteRenderer[] items = new SpriteRenderer[4];
-	public Transform spawnPos;
+	public Transform spawn;
 	public Transform scroller;
 	private int curPage;
 	private int maxPage;
@@ -34,8 +34,21 @@ public class InventoryManager : MonoBehaviour
 			return;
 		}
 		index += curPage * 4;
-		var newScrap = Instantiate(itemPrefabs[index], spawnPos.position, spawnPos.rotation, spawnPos);
-        newScrap.GetComponent<ScrapInteraction>().SetState(ScrapConstants.ScrapState.notPlaced);
+
+        Vector3 spawnPos;
+
+        if(spawn != null)
+        {
+            spawnPos = spawn.position;
+        }
+        else
+        {
+            var cameraMain = Camera.main.transform;
+            spawnPos = cameraMain.position + (cameraMain.transform.forward * 2);
+        }
+
+		var newScrap = Instantiate(itemPrefabs[index], spawnPos, Quaternion.identity);
+        newScrap.GetComponent<ScrapInteraction>().SetState(ScrapConstants.ScrapState.placed);
 	}
 
 	public void PageUp()

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7693562854091537060}
   - component: {fileID: 7506152937183542951}
   - component: {fileID: 3882551285618702335}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Screw2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

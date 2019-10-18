@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9176952523880811467}
   - component: {fileID: 2214405610025290553}
   - component: {fileID: 8114463654740427584}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GolfClub
   m_TagString: Untagged
   m_Icon: {fileID: 0}

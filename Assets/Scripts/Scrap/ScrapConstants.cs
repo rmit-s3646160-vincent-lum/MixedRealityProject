@@ -16,7 +16,7 @@ public static class ScrapConstants
 		initial,
 		manipulating,
 		notPlaced,
-		beingPlaced
+		placed
 	}
 
 }

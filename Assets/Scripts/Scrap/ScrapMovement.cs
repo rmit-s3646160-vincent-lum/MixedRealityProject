@@ -45,7 +45,7 @@ public class ScrapMovement : MonoBehaviour
 				break;
 			case ScrapState.notPlaced:
 				break;
-			case ScrapState.beingPlaced:
+			case ScrapState.placed:
 				break;
 
 		}
@@ -92,9 +92,9 @@ public class ScrapMovement : MonoBehaviour
 			case ScrapState.notPlaced:
 				scrapInteraction.SetState(ScrapState.notPlaced);
 				break;
-			case ScrapState.beingPlaced:
+			case ScrapState.placed:
 				rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-				scrapInteraction.SetState(ScrapState.beingPlaced);
+				scrapInteraction.SetState(ScrapState.placed);
 				break;
 
 		}

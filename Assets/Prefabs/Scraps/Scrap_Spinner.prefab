@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2193535468444960981}
   - component: {fileID: 549082252876242173}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpinnerParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 5671915802776359953}
   - component: {fileID: 6122372205066168562}
   - component: {fileID: 5950042817802629787}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: spinner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -334,11 +334,11 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
                 }
                 if (IsColliding())
                 {
-                    state = ScrapState.beingPlaced;
+                    state = ScrapState.placed;
                     OnPlacement.Invoke();
                 }
                 break;
-            case ScrapState.beingPlaced:
+            case ScrapState.placed:
                 UpdateColor();
                 if (rb != null)
                     rb.constraints = RigidbodyConstraints.None;
@@ -360,7 +360,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
                     rb.constraints = RigidbodyConstraints.FreezeAll;
                 }
                 break;
-            case ScrapState.beingPlaced:
+            case ScrapState.placed:
                 OnPlacement.Invoke();
                 if (rb != null)
                     rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -427,7 +427,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
     private void OnCollisionExit(Collision collision)
     {
         collideCount--;
-        if(!IsColliding() && state == ScrapState.beingPlaced)
+        if(!IsColliding() && state == ScrapState.placed)
         {
             SetState(ScrapState.notPlaced);
         }

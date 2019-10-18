@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8551096081441625177}
   - component: {fileID: 4906203994008123235}
   - component: {fileID: 6012016408240257161}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Coil
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MetalSheet
       objectReference: {fileID: 0}
+    - target: {fileID: 9106981151418830622, guid: 89702d3391db8704f974ead95f5e3a14,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7181806540506315045, guid: 89702d3391db8704f974ead95f5e3a14,
         type: 3}
       propertyPath: m_LocalPosition.x

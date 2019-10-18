@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8275132977900707674}
   - component: {fileID: 1957255638343140006}
   - component: {fileID: 3168212635098622402}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TrafficLightShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,10 +161,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
+    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
-      propertyPath: m_Mass
-      value: 10
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 782772389125746701, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
@@ -176,10 +176,10 @@ PrefabInstance:
       propertyPath: descriptionText
       value: Red light! Green light!
       objectReference: {fileID: 0}
-    - target: {fileID: 2327610034821400719, guid: bd355419529034a499fee06ca481c77f,
+    - target: {fileID: 5770002446140100286, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 1
+      propertyPath: m_Mass
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5770002446140100161, guid: bd355419529034a499fee06ca481c77f,
         type: 3}
@@ -214,6 +214,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 8a2c0c7b5f981b049aa05043cd67daaf, type: 3}
       propertyPath: m_Name
       value: LightBottom
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8a2c0c7b5f981b049aa05043cd67daaf, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 8a2c0c7b5f981b049aa05043cd67daaf, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8a2c0c7b5f981b049aa05043cd67daaf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -281,6 +289,14 @@ PrefabInstance:
     - target: {fileID: 100002, guid: 31f3d5fbc64bf57448292745c9773fd6, type: 3}
       propertyPath: m_Name
       value: LightTop
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 31f3d5fbc64bf57448292745c9773fd6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 31f3d5fbc64bf57448292745c9773fd6, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 31f3d5fbc64bf57448292745c9773fd6, type: 3}
       propertyPath: m_LocalPosition.x

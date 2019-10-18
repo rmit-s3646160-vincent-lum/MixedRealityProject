@@ -193,6 +193,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GLASSES
       objectReference: {fileID: 0}
+    - target: {fileID: 518203959255559887, guid: eb2ad6e4af0b01449b477b1a0af372b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 518203959255986927, guid: eb2ad6e4af0b01449b477b1a0af372b7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -262,6 +267,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131753476706166681, guid: eb2ad6e4af0b01449b477b1a0af372b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1755964238299771198, guid: eb2ad6e4af0b01449b477b1a0af372b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb2ad6e4af0b01449b477b1a0af372b7, type: 3}
