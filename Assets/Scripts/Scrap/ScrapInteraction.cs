@@ -81,6 +81,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             defaultColors[i] = meshRenderers[i].material.color;
         }
+        Resources.UnloadUnusedAssets();
 
         offsetDistance = defaultOffsetDistance;
 	}
@@ -454,6 +455,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
             {
                 meshRenderers[i].material.color = colorOnClip;
             }
+            Resources.UnloadUnusedAssets();
         }
     }
 
@@ -463,6 +465,7 @@ public class ScrapInteraction : BaseInputHandler, IMixedRealityInputHandler<Vect
         {
             meshRenderers[i].material.color = defaultColors[i];
         }
+        Resources.UnloadUnusedAssets();
     }
 
 }
